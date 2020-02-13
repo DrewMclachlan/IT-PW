@@ -1,0 +1,9 @@
+venv
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+
+# Default ignored files
+/workspace.xml
