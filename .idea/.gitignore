@@ -1,9 +1,7 @@
-venv
 
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-
-# Default ignored files
-/workspace.xml
+.pyc 
+.DS_Store 
+__pycache__/
+db.sqlite3
+*.key
+thumbs.db
