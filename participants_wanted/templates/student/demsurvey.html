@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+hey before you go for you must complete this demographic suvey about yourself
+this does not need to be done now, but you will not be able to bid for exper till
+
+
+<form id="user_form" method="post" action="{% url 'student:demsurv' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ dem_form.as_p }}
+
+<input type="submit" name="submit" value="demsurv" /> </form>
+
+
+</body>
+
+</html>

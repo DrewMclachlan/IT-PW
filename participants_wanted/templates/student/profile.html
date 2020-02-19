@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Profile pic</H1>
+<img src="{{ MEDIA_URL }}{{ info.picture }}" alt="profile pic"/>
+Your info
+<br />
+{{ info.age }}
+<br />
+{{ info.sex }}
+<br />
+    {{ info.age }}
+<br />
+    {{ info.language }}
+<br />
+    {{ info.country }}
+<br />
+    {{ info.education }}
+
+
+<a href = "{% url 'student:home' %}">home</a>
+
+
+</body>
+</html>

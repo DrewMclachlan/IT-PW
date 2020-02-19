@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- make this local -->
+
+</head>
+<body>
+
+    {{ user.username }}
+
+
+<a href = "{% url 'student:logout' %}">Logout</a>
+    <br />
+
+<a href = "{% url 'student:profile' %}">profile</a>
+<a href = "{% url 'student:demsurv' %}">demsurv</a>
+    <br />
+{% if expr %}
+    <ul>
+{% for e in expr %}
+    <br />
+
+    <li id={{forloop.counter}}>title: {{ e.name }}    |||       bid: <button class="{{forloop.counter}}" value="{{e.name}}">x</button></li>
+
+        {% endfor %}
+        </ul>
+    {% else %}
+<p>no exper</p>
+{% endif %}
+    <br />
+
+
+    <h2>waiting for:</h2>
+ {% if waitingexpr %}
+    <ul>
+{% for e2 in waitingexpr %}
+    <br />
+
+    <li> title: {{ e2.name }}</li>
+
+        {% endfor %}
+        </ul>
+    {% else %}
+<p>not waiting exper</p>
+{% endif %}
+
+
+<script>
+ $(document).ready(function() {
+     var username = "{{user.username}}";
+     $("button").click(function () {
+         var id = '#' + $(this).attr('class');
+         var name = $(this).attr('value')
+         $(id).remove()
+         $.get('/student/makebid/',
+             {'expr_name': name, 'username':username},
+             function(){
+                location.reload()
+             }
+             )
+     })
+ })
+
+
+</script>
+
+</body>
+</html>
