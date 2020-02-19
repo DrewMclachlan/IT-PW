@@ -6,7 +6,9 @@
 </head>
 <body>
 {% if registered %}
-    <p>logged in</p>
+    <p>registered</p>
+<a href = "{% url 'student:home' %}">home</a>
+
 {% else %}
 <form id="user_form" method="post" action="{% url 'student:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
