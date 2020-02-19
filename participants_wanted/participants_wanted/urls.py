@@ -21,5 +21,6 @@ from student import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
-    path('student/', include('student.urls'))
+    path('student/', include('student.urls')),
+    path('experimenter/', include('experimenter.urls'))
 ]
