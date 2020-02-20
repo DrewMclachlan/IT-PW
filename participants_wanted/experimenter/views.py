@@ -22,6 +22,6 @@ def register(request):
 
 # Notify (a user has applied for study)
 
-# View bids:
+# See bids:
 # see list of all applicants & applicants' info
 # accept or decline an applicant (y/n accept bid)
