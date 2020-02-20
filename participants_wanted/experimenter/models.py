@@ -6,3 +6,13 @@ class Experiment(models.Model):
 
     def __str__(self):
         return self.name
+
+# Create study:
+# experiment title
+# experiment details
+# price of bid
+# start date, end date
+# accepting bids y/n
+# num participants req.
+# num participants so far
+# link to more information

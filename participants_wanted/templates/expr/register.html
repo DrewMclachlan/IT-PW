@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+</head>
+<body>
+{% if registered %}
+    <p>Thank you for registering with us.</p>
+<a href = "{% url 'experimenter:home' %}">Home</a>
+
+{% else %}
+<form id="user_form" method="post" action="{% url 'experimenter:register' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ user_form.as_p }}
+    <input type="submit" name="submit" value="Register" />
+</form>
+{% endif %}
+</body>
+</html>
