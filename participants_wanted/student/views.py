@@ -49,6 +49,7 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username = username, password = password)
+        ##need to add an aspect of checking for student satus
         if user:
             if user.is_active:
                 login(request, user)
@@ -90,8 +91,8 @@ def profile(request):
         context_dict = {}
         context_dict['info'] = i
         return render(request, 'student/profile.html', context=context_dict)
-    except: ObjectDoesNotExist
-    return HttpResponse("you must do the dem survey first!")
+    except ObjectDoesNotExist:
+        return HttpResponse("you must do the dem survey first!")
 
 
 

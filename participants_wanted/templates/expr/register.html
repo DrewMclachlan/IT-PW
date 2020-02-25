@@ -7,13 +7,14 @@
 <body>
 {% if registered %}
     <p>Thank you for registering with us.</p>
-<a href = "{% url 'experimenter:home' %}">Home</a>
+<a href = "{% url 'experimenter:index' %}">Home</a>
 
 {% else %}
 <form id="user_form" method="post" action="{% url 'experimenter:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {{ user_form.as_p }}
+    {{ expr_form.as_p }}
+    {{ exprp_form.as_p }}
     <input type="submit" name="submit" value="Register" />
 </form>
 {% endif %}

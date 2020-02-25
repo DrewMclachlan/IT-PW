@@ -10,6 +10,7 @@ class Demsurv(models.Model):
     country = models.CharField(max_length=128)
     education = models.CharField(max_length=128)
     picture = models.ImageField(upload_to='profile_images', blank=True)
+    isexpr = models.CharField(max_length=128, default=False)
 
     def __str__(self):
         return self.user.username

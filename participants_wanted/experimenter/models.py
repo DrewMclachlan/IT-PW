@@ -1,11 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class Experiment(models.Model):
-    students = models.ManyToManyField(User, blank=True)
-    name = models.CharField(max_length=128)
+
+class ExprProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=128)
+    school = models.CharField(max_length=128)
+    webpage = models.CharField(max_length=128, blank=True)
+    schoolemail = models.CharField(max_length=128)
+    publicnumber = models.CharField(max_length=128)
+    isexpr = models.CharField(max_length=128, default=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username
+
 
 class CreateExpr(models.Model):
     title = models.CharField(max_length=128)
