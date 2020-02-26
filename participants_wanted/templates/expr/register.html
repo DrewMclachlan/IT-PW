@@ -1,46 +1,38 @@
-
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load template_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../media/style.css">
+        <link rel="stylesheet" type="text/css" href="../../media/style.css">
     <title>
-         MSD -
+             MSD -
         {% block title_block %}
           The Medical Study Database
-        {% endblock %}
-    </title>
+        {% endblock %}</title>
 </head>
-
-
-{% extends 'rango/base.html' %}
-{% load staticfiles %}
-<head>
-    <link rel="stylesheet" type="text/css" href="../../media/style.css">
-</head>
-{% block title_block %}
-	Homepage
-{% endblock %}
-
-{% block body_block %}
-
+<body>
 {% if registered %}
-    <p>registered</p>
-<a href = "{% url 'student:home' %}">home</a>
+    <p>Thank you for registering with us.</p>
+<a href = "{% url 'experimenter:index' %}">Home</a>
+
 {% else %}
-<form id="user_form" method="post" action="{% url 'student:register' %}" enctype="multipart/form-data">
+<form id="user_form" method="post" action="{% url 'experimenter:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {{ user_form.as_p }}
+    {{ expr_form.as_p }}
+    {{ exprp_form.as_p }}
     <input type="submit" name="submit" value="Register" />
 </form>
 {% endif %}
+
+
+{% block body_block %}
+
 <div style="border:1px; width:600px; margin:auto;">
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Student Sign Up</h4>
+      <h4 class="my-0 font-weight-normal">Experimenter Sign Up</h4>
     </div>
     <div class="card-body">
       <div class="col-md-8 order-md-1">
@@ -71,6 +63,14 @@
           </div>
         </div>
 
+                <div class="mb-3">
+          <label for="email">Personal Email </label>
+          <input type="email" class="form-control" id="email" placeholder="you@example.com">
+          <div class="invalid-feedback">
+            Please enter a valid email address
+          </div>
+        </div>
+
 
         <div class="mb-3">
           <br>
@@ -93,4 +93,8 @@
 </div>
 
 {% endblock %}
+
+
+</body>
 </html>
+
