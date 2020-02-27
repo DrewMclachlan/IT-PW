@@ -11,7 +11,6 @@ class UserForm(forms.ModelForm):
 
 
 
-
 class DemsurvForm(forms.ModelForm):
     class Meta:
         model = Demsurv

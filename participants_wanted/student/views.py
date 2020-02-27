@@ -6,19 +6,34 @@ from .forms import UserForm, DemsurvForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from .models import Demsurv, Experiment
+from .models import Demsurv, StudentInfo
+from experimenter.models import Experiment
 from django.core.exceptions import ObjectDoesNotExist
+import json
+from django.core import serializers
 
 def mainhome(request):
     return render(request, 'home/index.html')
-
 
 @login_required
 def home(request):
     expr = Experiment.objects.all()
     expr = expr.exclude(students__username=request.user)
-    waitingexpr = Experiment.objects.filter(students__username=request.user)
-    return render(request, 'student/home.html', context={'expr': expr, 'waitingexpr': waitingexpr})
+    s_i = StudentInfo.objects.get(user=request.user)
+    acceptedexpr = []
+    waitingexpr = []
+    pastexpr = []
+
+    for i in s_i.bidexpr.all():
+        waitingexpr.append(i)
+
+    for i in s_i.currentexpr.all():
+        acceptedexpr.append(i)
+
+    for i in s_i.pastexpr.all():
+        pastexpr.append(i)
+
+    return render(request, 'student/home.html', context={'expr': expr, 'acceptedexpr':acceptedexpr, 'waitingexpr': waitingexpr, 'pastexpr':pastexpr})
 
 
 @login_required
@@ -35,12 +50,13 @@ def register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.save()
+            student_info = StudentInfo(user=user)
+            student_info.save()
             registered = True
         else:
             print(user_form.errors)
     else:
         user_form = UserForm()
-    print(user_form)
     return render(request, 'student/register.html', context={'user_form': user_form, 'registered': registered})
 
 
@@ -96,20 +112,32 @@ def profile(request):
 
 
 
-##update to class views
+# update to class views
 @login_required
 def makebid(request):
     expr_name = request.GET['expr_name']
     username = request.GET['username']
-    print(expr_name, username)
+    u_id = request.GET['u_id']
     try:
         expr = Experiment.objects.get(name=expr_name)
-        print(expr._meta.fields)
+        s_i = StudentInfo.objects.get(user_id=u_id)
     except ObjectDoesNotExist:
         return HttpResponse(-1)
-    expr.save()
     expr.students.add(User.objects.get(username=username))
-
+    s_i.bidexpr.add(expr)
+    expr.save()
+    s_i.save()
     return HttpResponse(expr)
+
+@login_required
+def displaydetails(request):
+    name = request.GET['name']
+    try:
+        demsurv = Demsurv.objects.get(user__username=name)
+    except ObjectDoesNotExist:
+        return HttpResponse(-1)
+    ser_obj = serializers.serialize('json', [demsurv])
+    return HttpResponse(ser_obj)
+
 
 

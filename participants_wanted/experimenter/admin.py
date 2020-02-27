@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.contrib import admin
-from .models import ExprProfile, CreateExpr
+from .models import ExprProfile
 
 admin.site.register(ExprProfile)
-admin.site.register(CreateExpr)
 
 # Register your models here.

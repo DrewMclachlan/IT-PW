@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <style>
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+.modal-body {padding: 2px 16px;}
+
+
+</style>
+
+
+</head>
+<body>
+expr home
+ <br />
+<a href = "{% url 'experimenter:logout' %}">Logout</a>
+{% if expr %}
+    {% for e in expr %}
+
+        <br />
+        <div class="{{e.name}}">
+        <h2>{{ e.name }}</h2>
+        <p>amount needed:{{ e.num_req }}</p>
+        <h4>Students who have bid:</h4>
+        {% if dict %}
+        {% for key, value in dict.items %}
+            {% if key == e.name %}
+            {% for name in value %}
+                <li id="{{forloop.counter}}">{{name}} || <span class="blue" value="{{name}}">screen user</span>
+                <button class="accept" value="{{name}}">accept</button>
+                    <button  class="decline" value="{{name}}">decline</button>
+                </li>
+            {% endfor %}
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+            </ul>
+    {% endfor %}
+
+{% else %}
+    <p>no exper</p>
+{% endif %}
+    <br />
+
+
+<p id="d"></p>
+</div>
+
+
+</body>
+
+
+
+
+
+<script>
+ $(document).ready(function() {
+     $('.blue').css('color', 'blue');
+     $("span").click(function(){
+         $('#d').empty()
+         var name = $(this).attr('value')
+         $.get('/student/displaydetails/',
+             {'name': name},
+             function(data){
+                var obj = JSON.parse(data)
+                console.log(obj[0].fields)
+                $('#d').prepend('User: ', name, ' Sex: ', obj[0].fields.sex, ' Age: ', obj[0].fields.age,
+                ' Language: ', obj[0].fields.language, ' Country: ', obj[0].fields.country, ' Education: ',obj[0].fields.education)
+
+             }
+         )
+     });
+ })
+
+ $(document).ready(function() {
+     $(".accept").click(function () {
+         var name = $(this).attr('value')
+         var expr = $(this).closest('div').prop('className');
+         $.get('/experimenter/accept/',
+             {'expr':expr,'student': name},
+             function(){
+                location.reload()
+             }
+             )
+     })
+ })
+
+ $(document).ready(function() {
+     $(".decline").click(function () {
+         var name = $(this).attr('value')
+         var expr = $(this).closest('div').prop('className');
+         $.get('/experimenter/decline/',
+             {'expr':expr,'student': name},
+             function(){
+                location.reload()
+             }
+             )
+     })
+ })
+
+</script>
+</html>

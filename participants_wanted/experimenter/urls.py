@@ -7,5 +7,10 @@ app_name = 'experimenter'
 urlpatterns = [
     path('', views.index, name='index'),
     path('register/', views.register, name='register'),
-    path('login/', views.expr_lgoin, name='login')
+    path('login/', views.expr_lgoin, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    path('home/', views.home, name='home'),
+    path('accept/', views.accept, name='accept'),
+    path('decline/', views.decline, name='decline')
+
 ]

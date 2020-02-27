@@ -18,45 +18,71 @@
 <a href = "{% url 'student:profile' %}">profile</a>
 <a href = "{% url 'student:demsurv' %}">demsurv</a>
     <br />
-{% if expr %}
+    {% if expr %}
     <ul>
-{% for e in expr %}
+    {% for e in expr %}
+        <br />
+        <li id={{forloop.counter}}>title: {{ e.name }}    |||       bid: <button class="{{forloop.counter}}" value="{{e.name}}">x</button></li>
+        {% endfor %}
+        </ul>
+        {% else %}
+        <p>no exper</p>
+    {% endif %}
     <br />
 
-    <li id={{forloop.counter}}>title: {{ e.name }}    |||       bid: <button class="{{forloop.counter}}" value="{{e.name}}">x</button></li>
 
+    <h2>accepted:</h2>
+    {% if acceptedexpr %}
+    <ul>
+        {% for e2 in acceptedexpr %}
+        <br />
+        <li> title: {{ e2.name }}</li>
         {% endfor %}
         </ul>
     {% else %}
-<p>no exper</p>
-{% endif %}
-    <br />
-
+    <p>not been accepted for any exper</p>
+    {% endif %}
 
     <h2>waiting for:</h2>
- {% if waitingexpr %}
+    {% if waitingexpr %}
     <ul>
-{% for e2 in waitingexpr %}
-    <br />
-
-    <li> title: {{ e2.name }}</li>
-
+        {% for e3 in waitingexpr %}
+        <br />
+        <li> title: {{ e3.name }}</li>
         {% endfor %}
         </ul>
     {% else %}
-<p>not waiting exper</p>
-{% endif %}
+    <p>not been accepted for any exper</p>
+    {% endif %}
+
+    <h2>past expr:</h2>
+    {% if pastexpr %}
+    <ul>
+        {% for e4 in pastexpr %}
+        <br />
+        <li> title: {{ e4.name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+    <p>no past expr</p>
+    {% endif %}
+
+
+
+
 
 
 <script>
  $(document).ready(function() {
      var username = "{{user.username}}";
+     var u_id = "{{user.id}}";
+     console.log(u_id)
      $("button").click(function () {
          var id = '#' + $(this).attr('class');
          var name = $(this).attr('value')
          $(id).remove()
          $.get('/student/makebid/',
-             {'expr_name': name, 'username':username},
+             {'expr_name': name, 'username':username, 'u_id':u_id},
              function(){
                 location.reload()
              }
