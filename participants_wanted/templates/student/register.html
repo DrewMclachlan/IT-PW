@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
 {% load staticfiles %}
-{% load template_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,28 +14,21 @@
 </head>
 
 
-{% extends 'rango/base.html' %}
-{% load staticfiles %}
 <head>
     <link rel="stylesheet" type="text/css" href="../../media/style.css">
 </head>
-{% block title_block %}
-	Homepage
-{% endblock %}
+
 
 {% block body_block %}
 
 {% if registered %}
+<script>console.log('{{registered}}')</script>
+
     <p>registered</p>
 <a href = "{% url 'student:home' %}">home</a>
 {% else %}
-<form id="user_form" method="post" action="{% url 'student:register' %}" enctype="multipart/form-data">
-    {% csrf_token %}
 
-    {{ user_form.as_p }}
-    <input type="submit" name="submit" value="Register" />
-</form>
-{% endif %}
+
 <div style="border:1px; width:600px; margin:auto;">
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
@@ -45,52 +37,18 @@
     <div class="card-body">
       <div class="col-md-8 order-md-1">
       <form class="needs-validation" novalidate="">
+    <form id="user_form" method="post" action="{% url 'student:register' %}" enctype="multipart/form-data">
+    {% csrf_token %}
 
-          <div class="mb-3">
-            <label for="firstName">Username</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-            <div class="invalid-feedback">
-              Valid first name is required.
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="lastName">Password</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-          </div>
-          <div class="mb-3">
-            <label for="lastName">Re-enter Password</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-          </div>
+    {{ user_form.as_p }}
 
-
-        <div class="mb-3">
-          <label for="email">Email </label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com">
-          <div class="invalid-feedback">
-            Please enter a valid email address
-          </div>
-        </div>
-
-
-        <div class="mb-3">
-          <br>
-        <h5> Payment Details </h5>
-        <div class="mb-3">
-        <label for="zip">Account Number</label>
-        <input type="text" class="form-control" id="zip" placeholder="" required="">
-        </div>
-        <div class="mb-3">
-        <label for="zip">Sort Code</label>
-        <input type="text" class="form-control" id="zip" placeholder="" required="">
-        </div>
-        </div>
-        <hr class="mb-4">
         <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
         </form>
+      </form>
       </div>
     </div>
   </div>
 </div>
-
+{% endif %}
 {% endblock %}
 </html>

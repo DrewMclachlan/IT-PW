@@ -11,6 +11,7 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('home/', views.home, name='home'),
     path('accept/', views.accept, name='accept'),
-    path('decline/', views.decline, name='decline')
+    path('decline/', views.decline, name='decline'),
+    path('getall/', views.getall, name='getall')
 
 ]

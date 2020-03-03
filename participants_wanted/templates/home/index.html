@@ -1,29 +1,35 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
 {% load staticfiles %}
-{% load template_tags %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>
-         MSD -
-        {% block title_block %}
-          The Medical Study Database
-        {% endblock %}
-    </title>
-</head>
-
-
-{% extends 'rango/base.html' %}
-{% load staticfiles %}
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-{% block title_block %}
-	Homepage
-{% endblock %}
-
 {% block body_block %}
+<script>
+	$(document).ready(function() {
+         $.get('/experimenter/getall/', function(exprs){
+         	for(i in exprs){
+         		$('#append').append(
+         				'<div class="col-md-8 order-md-1">' +
+						'<div class="container">' +
+						'<div class="card-deck mb-3 text-center">' +
+						'<div class="card mb-4 shadow-sm">' +
+						'<div class="card-header">' +
+						'<h4 class="my-0 font-weight-normal">' + exprs[i].fields.name + '</h4> ' +
+						'</div> <div class="card-body"> ' +
+						'<ul class="list-unstyled mt-3 mb-4"> ' +
+						'<li>' + exprs[i].fields.start_date + '</li>' +
+						'<li>' + exprs[i].fields.price + '</li>' +
+						'<li>Expand...</li> ' +
+						'<li>'+ exprs[i].fields.end_date+ '</li>' +
+						'<li>Bid</li>' +
+						'</ul> ' +
+						'<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>' +
+						'</div>' +
+						'</div>' +
+						'</div>')
+			 }
+		 })
+     })
+	</script>
 <div class="row">
 	<div class="col-md-4 order-md-2 mb-4">
 		<div class="card-deck mb-3 text-center">
@@ -34,8 +40,6 @@
 				</ul>
 			</div>
 		</div>
-
-
 		<div class="card-deck mb-3 text-center">
 				<div class="card-body">
 					<ul class="list-unstyled mt-3 mb-4">
@@ -46,105 +50,8 @@
 					</ul>
 				</div>
 		</div>
-
+		<div id="append"></div>
 	</div>
-	<div class="col-md-8 order-md-1">
-		<div class="container">
-			<div class="card-deck mb-3 text-center">
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-
-		</div>
-
-
-					<div class="card-deck mb-3 text-center">
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-
-		</div>
-
-
-					<div class="card-deck mb-3 text-center">
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
 
 		</div>
 		</div>
@@ -160,3 +67,5 @@
 
 {% endblock %}
 </html>
+
+

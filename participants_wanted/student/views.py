@@ -15,6 +15,7 @@ from django.core import serializers
 def mainhome(request):
     return render(request, 'home/index.html')
 
+
 @login_required
 def home(request):
     expr = Experiment.objects.all()
@@ -128,6 +129,7 @@ def makebid(request):
     expr.save()
     s_i.save()
     return HttpResponse(expr)
+
 
 @login_required
 def displaydetails(request):
