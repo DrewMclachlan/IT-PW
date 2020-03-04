@@ -4,7 +4,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../../media/style.css">
+
     <title>
          MSD -
         {% block title_block %}
@@ -13,150 +14,65 @@
     </title>
 </head>
 
-
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+
 {% block title_block %}
 	Homepage
 {% endblock %}
 
 {% block body_block %}
-<div class="row">
-	<div class="col-md-4 order-md-2 mb-4">
-		<div class="card-deck mb-3 text-center">
-			<div class="card-body">
-				<ul class="list-unstyled mt-3 mb-4">
-					<button type="button" class="btn btn-lg btn-block btn-primary" style = "width:250px;height:50px;">Student Log In</button>
-					<button type="button" class="btn btn-lg btn-block btn-primary" style = "width:250px;height:50px">Experimenter Log In</button>
-				</ul>
-			</div>
-		</div>
+
+  <main role="main">
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <div class="carousel-inner" >
+            <div class="carousel-item active" >
+        <div class="mainImg" > <img src= "../../media/future.jpg" alt=""></div>
+        <div class="container">
+          <div class="carousel-caption text-right">
+            <h1> Medical Study Database (MSD) </h1>
+            <p>We provide a link between the people who want to earn money participating in medical experiments and the scientists carrying out experiments in their area.</p>
+            <p><a class="btn btn-lg btn-primary" href = "" role="button"> Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
 
-		<div class="card-deck mb-3 text-center">
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>txt</li>
-						<li>txt</li>
-						<li>txt</li>
-						<li>txt</li>
-					</ul>
-				</div>
-		</div>
+  <div class="container marketing" >
 
-	</div>
-	<div class="col-md-8 order-md-1">
-		<div class="container">
-			<div class="card-deck mb-3 text-center">
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
+    <div class="row" >
 
-		</div>
+      <div class="col-lg-4"style="border:1px; width:100%; margin:auto;" >
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140" ><title>Student</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+        <h2>Find Someone, <br> Go Further</h2>
+        <p>You can advertise your own experiments, and you will be notified by email and in the app when students apply.</p>
+        <p><a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:150px">Join us</a></p>
+        <p><a class="btn btn-secondary" href="{% url 'experimenter:login' %}" role="button" style="width:150px">Login</a></p>
+      </div>
+            <div class="col-lg-4" style="border:1px; width:100%; margin:auto;" >
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Student</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+        <h2>Help Scienties, <br> Make Money</h2>
+        <p>You can search by category of medical experiment, location of the experiment, and payment per hour.</p>
+        <p><a class="btn btn-secondary" href="{% url 'student:register' %}" role="button" style="width:150px">Join us</a></p>
+        <p><a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:150px">Login</a></p>
+      </div>
+
+    </div>
 
 
-					<div class="card-deck mb-3 text-center">
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-			
-		</div>
-
-
-					<div class="card-deck mb-3 text-center">
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-			<div class="card mb-4 shadow-sm">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-				</div>
-				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>Date: </li>
-						<li>Expand...</li>
-						<li>£10 /h </li>
-						<li>Bid</li>
-					</ul>
-					<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>
-				</div>
-			</div>
-			
-		</div>
-		</div>
-	</div>
-</div>
-
-
-
-<div class="card-deck mb-3 text-center">
+    <hr class="featurette-divider">
 
 
   </div>
 
+</main>
+
+
 {% endblock %}
 </html>
+
