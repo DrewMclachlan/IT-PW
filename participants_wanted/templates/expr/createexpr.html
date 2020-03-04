@@ -2,29 +2,29 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 <html lang="en">
-{% block body_block %}
-<div style="border:1px; width:600px; margin:auto;">
-  {% if registered %}
+{% if registered %}
     <p>Thank you for registering with us.</p>
 <a href = "{% url 'experimenter:index' %}">Home</a>
 {% else %}
+{% block body_block %}
+<div style="border:1px; width:600px; margin:auto;">
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
       <h4 class="my-0 font-weight-normal">Experimenter Sign Up</h4>
     </div>
     <div class="card-body">
       <div class="col-md-8 order-md-1">
-      <form id="user_form" method="post" action="{% url 'experimenter:register' %}" enctype="multipart/form-data">
+      <form id="create_expr" method="post" action="{% url 'experimenter:createexpr' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ expr_form.as_p }}
-    {{ exprp_form.as_p }}
-        <button class="btn btn-primary btn-lg btn-block" value="submit" type="submit">Register</button>
+    {{ cexpr_form.as_p }}
+        <button class="btn btn-primary btn-lg btn-block" value="submit" type="submit">submit</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-{% endif %}
+
 {% endblock %}
+{% endif %}
 </body>
 </html>

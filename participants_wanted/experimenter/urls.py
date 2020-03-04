@@ -12,6 +12,7 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('accept/', views.accept, name='accept'),
     path('decline/', views.decline, name='decline'),
-    path('getall/', views.getall, name='getall')
+    path('getall/', views.getall, name='getall'),
+    path('createexpr/', views.createExperemnt, name='createexpr')
 
 ]

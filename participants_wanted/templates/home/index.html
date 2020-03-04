@@ -6,10 +6,10 @@
 <script>
 	$(document).ready(function() {
          $.get('/experimenter/getall/', function(exprs){
+         	console.log(exprs)
          	for(i in exprs){
          		$('#append').append(
-         				'<div class="col-md-8 order-md-1">' +
-						'<div class="container">' +
+         				'<div class="col-sm-4 order-md-1">' +
 						'<div class="card-deck mb-3 text-center">' +
 						'<div class="card mb-4 shadow-sm">' +
 						'<div class="card-header">' +
@@ -18,11 +18,14 @@
 						'<ul class="list-unstyled mt-3 mb-4"> ' +
 						'<li>' + exprs[i].fields.start_date + '</li>' +
 						'<li>' + exprs[i].fields.price + '</li>' +
-						'<li>Expand...</li> ' +
 						'<li>'+ exprs[i].fields.end_date+ '</li>' +
-						'<li>Bid</li>' +
+						'<span id = "'+ exprs[i].fields.name + '" class="collapse">' +
+						'<li>' + exprs[i].fields.details + '</li>' +
+						'<li>' + exprs[i].fields.num_req + '</li>' +
+						'<li>' + exprs[i].fields.num_current + '</li>' +
+						'</span>' +
 						'</ul> ' +
-						'<button type="button" class="btn btn-lg btn-block btn-primary">See Details</button>' +
+						'<button type="button" class="btn btn-lg btn-block btn-primary" data-toggle="collapse" data-target="#' + exprs[i].fields.name + '">See Details</button>' +
 						'</div>' +
 						'</div>' +
 						'</div>')
@@ -32,29 +35,40 @@
 	</script>
 <div class="row">
 	<div class="col-md-4 order-md-2 mb-4">
-		<div class="card-deck mb-3 text-center">
-			<div class="card-body">
-				<ul class="list-unstyled mt-3 mb-4">
-					<button type="button" class="btn btn-lg btn-block btn-primary" style = "width:250px;height:50px;">Student Log In</button>
-					<button type="button" class="btn btn-lg btn-block btn-primary" style = "width:250px;height:50px">Experimenter Log In</button>
-				</ul>
-			</div>
-		</div>
-		<div class="card-deck mb-3 text-center">
+		<div class="card-deck mb-3 ">
 				<div class="card-body">
-					<ul class="list-unstyled mt-3 mb-4">
-						<li>txt</li>
-						<li>txt</li>
-						<li>txt</li>
-						<li>txt</li>
-					</ul>
+						<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
 				</div>
 		</div>
-		<div id="append"></div>
+		<div class="card-deck mb-3 text-center">
+			<div class="col-lg text-center">
+					<button type="button" class="btn btn-md  btn-primary"  onclick="location.href='student/login'">Student Log In</button>
+					<button type="button" class="btn btn-md btn-primary" style="margin-left: 5px" onclick="location.href='experimenter/login'">Experimenter Log In</button>
+			</div>
+		</div>
+				<div class="card-deck mb-3 text-center">
+			<div class="col-lg text-center">
+					<button type="button" class="btn btn-md  btn-primary"  onclick="location.href='student/register'">Student Reg</button>
+					<button type="button" class="btn btn-md btn-primary" style="margin-left: 5px" onclick="location.href='experimenter/register'">Experimenter Reg</button>
+			</div>
+		</div>
+
+
+
+
+
 	</div>
+	<div class="col-md-8 order-md-1">
+
+
+
+		<div id = append></dic>
+
 
 		</div>
-		</div>
+
 	</div>
 </div>
 
@@ -64,6 +78,7 @@
 
 
   </div>
+
 
 {% endblock %}
 </html>

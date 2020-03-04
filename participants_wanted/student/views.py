@@ -45,9 +45,11 @@ def user_logout(request):
 
 def register(request):
     registered = False
+    print(request.method)
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         if user_form.is_valid():
+            print('1')
             user = user_form.save()
             user.set_password(user.password)
             user.save()

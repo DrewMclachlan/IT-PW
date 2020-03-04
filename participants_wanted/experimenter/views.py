@@ -9,7 +9,7 @@ from django.urls import reverse
 from .models import ExprProfile, Experiment
 from student.models import StudentInfo
 
-from .forms import ExprForm, ExprProfileForm
+from .forms import ExprForm, ExprProfileForm, CreateExpr
 
 
 @login_required
@@ -59,7 +59,7 @@ def register(request):
     else:
         expr_form = ExprForm()
         exprp_form = ExprProfileForm
-    return render(request, 'expr/register.html', context={'expr_form': expr_form, 'exprp_form':exprp_form, 'registered':registered})
+    return render(request, 'expr/register.html', context={'expr_form': expr_form, 'exprp_form':exprp_form, 'registered': registered})
 
 
 def expr_lgoin(request):
@@ -74,7 +74,7 @@ def expr_lgoin(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('experimenter:index'))
+                return redirect(reverse('experimenter:home'))
             else:
                 return HttpResponse('account disabled')
         else:
@@ -84,12 +84,24 @@ def expr_lgoin(request):
         return render(request, 'expr/login.html')
 
 
+@login_required
+def createExperemnt(request):
+    created = False
+    if request.method == 'POST':
+        cexpr_form = CreateExpr(request.POST)
+        user = request.user
+        if cexpr_form.is_valid():
+            expr = cexpr_form.save(commit=False)
+            expr.user = user
+            expr.save()
+            created = True
+        else:
+            print(CreateExpr.errors)
+    else:
+        cexpr_form = CreateExpr
+    return render(request, 'expr/createexpr.html',
+                  context={'cexpr_form': cexpr_form, 'created': created})
 
-# Notify (a user has applied for study)
-
-# See bids:
-# see list of all applicants & applicants' info
-# accept or decline an applicant (y/n accept bid)
 
 @login_required
 def accept(request):

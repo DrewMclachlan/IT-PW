@@ -8,10 +8,13 @@ class Experiment(models.Model):
     name = models.CharField(max_length=128)
     details = models.CharField(max_length=128)
     price = models.IntegerField(default=0)
-    start_date = models.DateTimeField('Start date')
-    end_date = models.DateTimeField('End date')
+    start_date = models.DateField()
+    end_date = models.DateField()
     num_req = models.IntegerField(default=0)
     num_current = models.IntegerField(default=0)
+    age_req = models.IntegerField(default=0)
+    lang_req = models.CharField(max_length=128)
+    ed_req = models.CharField(max_length=128)
 
     def __str__(self):
         return self.name

@@ -1,6 +1,8 @@
 
 <!DOCTYPE html>
+{% extends 'base.html' %}
 {% load staticfiles %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,14 +38,10 @@
     </div>
     <div class="card-body">
       <div class="col-md-8 order-md-1">
-      <form class="needs-validation" novalidate="">
     <form id="user_form" method="post" action="{% url 'student:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
-
     {{ user_form.as_p }}
-
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-        </form>
+        <button class="btn btn-primary btn-lg btn-block"  value="submit" type="submit">Register</button>
       </form>
       </div>
     </div>
