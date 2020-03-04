@@ -2,85 +2,76 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../media/style.css">
+
+    <title>
+         MSD -
+        {% block title_block %}
+          The Medical Study Database
+        {% endblock %}
+    </title>
+</head>
+
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Homepage
+{% endblock %}
+
 {% block body_block %}
-<script>
-	$(document).ready(function() {
-         $.get('/experimenter/getall/', function(exprs){
-         	console.log(exprs)
-         	for(i in exprs){
-         		$('#append').append(
-         				'<div class="col-sm-4 order-md-1">' +
-						'<div class="card-deck mb-3 text-center">' +
-						'<div class="card mb-4 shadow-sm">' +
-						'<div class="card-header">' +
-						'<h4 class="my-0 font-weight-normal">' + exprs[i].fields.name + '</h4> ' +
-						'</div> <div class="card-body"> ' +
-						'<ul class="list-unstyled mt-3 mb-4"> ' +
-						'<li>' + exprs[i].fields.start_date + '</li>' +
-						'<li>' + exprs[i].fields.price + '</li>' +
-						'<li>'+ exprs[i].fields.end_date+ '</li>' +
-						'<span id = "'+ exprs[i].fields.name + '" class="collapse">' +
-						'<li>' + exprs[i].fields.details + '</li>' +
-						'<li>' + exprs[i].fields.num_req + '</li>' +
-						'<li>' + exprs[i].fields.num_current + '</li>' +
-						'</span>' +
-						'</ul> ' +
-						'<button type="button" class="btn btn-lg btn-block btn-primary" data-toggle="collapse" data-target="#' + exprs[i].fields.name + '">See Details</button>' +
-						'</div>' +
-						'</div>' +
-						'</div>')
-			 }
-		 })
-     })
-	</script>
-<div class="row">
-	<div class="col-md-4 order-md-2 mb-4">
-		<div class="card-deck mb-3 ">
-				<div class="card-body">
-						<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-				</div>
-		</div>
-		<div class="card-deck mb-3 text-center">
-			<div class="col-lg text-center">
-					<button type="button" class="btn btn-md  btn-primary"  onclick="location.href='student/login'">Student Log In</button>
-					<button type="button" class="btn btn-md btn-primary" style="margin-left: 5px" onclick="location.href='experimenter/login'">Experimenter Log In</button>
-			</div>
-		</div>
-				<div class="card-deck mb-3 text-center">
-			<div class="col-lg text-center">
-					<button type="button" class="btn btn-md  btn-primary"  onclick="location.href='student/register'">Student Reg</button>
-					<button type="button" class="btn btn-md btn-primary" style="margin-left: 5px" onclick="location.href='experimenter/register'">Experimenter Reg</button>
-			</div>
-		</div>
 
+  <main role="main">
 
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-
-
-	</div>
-	<div class="col-md-8 order-md-1">
-
-
-
-		<div id = append></dic>
-
-
-		</div>
-
-	</div>
-</div>
-
-
-
-<div class="card-deck mb-3 text-center">
-
+    <div class="carousel-inner" >
+            <div class="carousel-item active" >
+        <div class="mainImg" > <img src= "../../media/future.jpg" alt=""></div>
+        <div class="container">
+          <div class="carousel-caption text-right">
+            <h1> Medical Study Database (MSD) </h1>
+            <p>We provide a link between the people who want to earn money participating in medical experiments and the scientists carrying out experiments in their area.</p>
+            <p><a class="btn btn-lg btn-primary" href = "" role="button"> Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
 
+  <div class="container marketing" >
+
+    <div class="row" >
+
+      <div class="col-lg-4"style="border:1px; width:100%; margin:auto;" >
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140" ><title>Student</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+        <h2>Find Someone, <br> Go Further</h2>
+        <p>You can advertise your own experiments, and you will be notified by email and in the app when students apply.</p>
+        <p><a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:150px">Join us</a></p>
+        <p><a class="btn btn-secondary" href="{% url 'experimenter:login' %}" role="button" style="width:150px">Login</a></p>
+      </div>
+            <div class="col-lg-4" style="border:1px; width:100%; margin:auto;" >
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Student</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+        <h2>Help Scienties, <br> Make Money</h2>
+        <p>You can search by category of medical experiment, location of the experiment, and payment per hour.</p>
+        <p><a class="btn btn-secondary" href="{% url 'student:register' %}" role="button" style="width:150px">Join us</a></p>
+        <p><a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:150px">Login</a></p>
+      </div>
+
+    </div>
+
+
+    <hr class="featurette-divider">
+
+
+  </div>
+
+</main>
+
+
 {% endblock %}
 </html>
-
-
