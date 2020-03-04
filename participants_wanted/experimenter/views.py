@@ -15,7 +15,7 @@ from .forms import ExprForm, ExprProfileForm, CreateExpr
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect(reverse('experimenter:index'))
+    return redirect(reverse('experimenter:home'))
 
 
 def getall(request):
@@ -27,7 +27,7 @@ def getall(request):
 def index(request):
     return render(request, 'expr/index.html')
 
-
+@login_required()
 def home(request):
     expr = Experiment.objects.filter(user=request.user)
     dict = {}
@@ -45,7 +45,6 @@ def register(request):
     if request.method == 'POST':
         expr_form = ExprForm(request.POST)
         exprp_form = ExprProfileForm(request.POST)
-
         if expr_form.is_valid() and exprp_form.is_valid():
             user = expr_form.save()
             user.set_password(user.password)
@@ -53,7 +52,13 @@ def register(request):
             profile = exprp_form.save(commit=False)
             profile.user = user
             profile.save()
-            registered = True
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            user = authenticate(username=expr_form.cleaned_data['username'],
+                                password=expr_form.cleaned_data['password'],
+                                )
+            login(request, user)
+            response = redirect(reverse('experimenter:home'))
+            return response
         else:
             print(expr_form.errors, exprp_form.errors)
     else:
@@ -95,6 +100,8 @@ def createExperemnt(request):
             expr.user = user
             expr.save()
             created = True
+            response = redirect(reverse('experimenter:home'))
+            return response
         else:
             print(CreateExpr.errors)
     else:
@@ -111,6 +118,10 @@ def accept(request):
         expr = Experiment.objects.get(name=expr_name)
         user = User.objects.get(username=student)
         expr.students.remove(user)
+        expr.accepted.add(user)
+        expr.num_current = expr.num_current + 1
+        if expr.num_req == expr.num_current:
+            expr.expr_full = True
         s_i = StudentInfo.objects.get(user__username=student)
         s_i.currentexpr.add(expr)
         s_i.bidexpr.remove(expr)
@@ -120,6 +131,7 @@ def accept(request):
     except ObjectDoesNotExist:
         return HttpResponse(-1)
     return HttpResponse()
+
 
 @login_required
 def decline(request):
@@ -136,3 +148,18 @@ def decline(request):
     except ObjectDoesNotExist:
         return HttpResponse(-1)
     return HttpResponse()
+
+@login_required
+def close(request):
+    name = request.GET['expr']
+    li = []
+    expr = Experiment.objects.get(name=name)
+    expr.expr_done = True
+    expr.save()
+    for s in expr.accepted.all():
+        s_i = StudentInfo.objects.get(user=s)
+        s_i.currentexpr.remove(expr)
+        s_i.pastexpr.add(expr)
+        s_i.save()
+    return HttpResponse()
+

@@ -6,13 +6,8 @@
     <title>Title</title>
 </head>
 
-<form id="user_form" method="post" action="{% url 'student:demsurv' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ dem_form.as_p }}
 
 <body class="bg-light" data-gr-c-s-loaded="true">
-	hey before you go for you must complete this demographic suvey about yourself
-this does not need to be done now, but you will not be able to bid for exper till
 	      	<div style="border:1px; width:800px; margin:auto;">
     <div class="container">
   <div class="py-5 text-center">
@@ -34,111 +29,16 @@ this does not need to be done now, but you will not be able to bid for exper til
 
     <div class="col-md-8 order-md-1" >
       <h4 class="mb-3" style="text-align: center">Demographic survey</h4>
-      <form class="needs-validation" novalidate="">
-
         <div class="row" >
-
-          <div class="col-md-8 mb-3" style="border:1px; width:100%; margin:auto;" >
-            <label for="gender">Gender</label>
-            <select class="custom-select d-block w-100" id="gender" required="">
-              <option value="">Choose...</option>
-              <option>Male</option>
-              <option>Female</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select one
-            </div>
-          </div>
-      </div>
-              <div class="row">
-
-          <div class="col-md-8 mb-3" style="border:1px; width:100%; margin:auto;" >
-            <label for="country">Country</label>
-            <select class="custom-select d-block w-100" id="country" required="">
-              <option value="">Choose...</option>
-              <option>UK</option>
-              <option>EU</option>
-              <option>Overseas</option>
-            </select>
-            <div class="invalid-feedback">
-              Where are you from
-            </div>
-          </div>
-      </div>
-        <div class="row">
-                    <div class="col-md-8 mb-3" style="border:1px; width:100%; margin:auto;" >
-            <label for="age">Age</label>
-            <select class="custom-select d-block w-100" id="age" required="">
-              <option value="">Choose...</option>
-				<option>17</option>
-				<option>18</option>
-				<option>19</option>
-				<option>20</option>
-				<option>21</option>
-				<option>22</option>
-				<option>23</option>
-				<option>24</option>
-				<option>25</option>
-				<option>26</option>
-				<option>27</option>
-				<option>28</option>
-				<option>29</option>
-				<option>30</option>
-            </select>
-            <div class="invalid-feedback">
-              How old are you?
-            </div>
-          </div>
-      </div>
-              <div class="row">
-            <div class="col-md-8 mb-3" style="border:1px; width:100%; margin:auto;"  >
-            <label for="language">Language</label>
-            <select class="custom-select d-block w-100" id="language" required="">
-              <option value="">Choose...</option>
-              <option>English</option>
-              <option>French</option>
-              <option>German</option>
-              <option>Korean</option>
-            </select>
-            <div class="invalid-feedback">
-              Mother tongue is
-            </div>
-          </div>
-      </div>
-
-                    <div class="row">
-            <div class="col-md-8 mb-3" style="border:1px; width:100%; margin:auto;"  >
-            <label for="education">Education</label>
-            <select class="custom-select d-block w-100" id="education" required="">
-              <option value="">Choose...</option>
-              <option>School</option>
-              <option>College</option>
-              <option>University(Undergraduate)</option>
-              <option>University(Postgraduate)</option>
-            </select>
-            <div class="invalid-feedback">
-              Your education status is
-            </div>
-          </div>
-      </div>
+        <form id="user_form" method="post" action="{% url 'student:demsurv' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ dem_form.as_p }}
 
 
-
-      </form>
-
-    </div>
-
-  </div>
-              <hr class="mb-4">
 <input class="btn btn-primary btn-lg btn-block" style="border:1px; margin:auto; width:300px" type="submit" name="submit" value="Submit" /> </form>
 </div>
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-        <script src="form-validation.js"></script>
 
-</body>
 
-</html>

@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 class Experiment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     students = models.ManyToManyField(User, symmetrical=False, blank=True, related_name='students')
-    name = models.CharField(max_length=128)
+    accepted = models.ManyToManyField(User, symmetrical=False, blank=True, related_name='accepted')
+    name = models.CharField(unique=True, max_length=128)
     details = models.CharField(max_length=128)
     price = models.IntegerField(default=0)
     start_date = models.DateField()
@@ -15,7 +16,8 @@ class Experiment(models.Model):
     age_req = models.IntegerField(default=0)
     lang_req = models.CharField(max_length=128)
     ed_req = models.CharField(max_length=128)
-
+    expr_full = models.BooleanField(default=False)
+    expr_done = models.BooleanField(default=False)
     def __str__(self):
         return self.name
 

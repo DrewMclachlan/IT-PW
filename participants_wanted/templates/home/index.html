@@ -1,25 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load staticfiles %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../media/style.css">
 
-    <title>
-         MSD -
-        {% block title_block %}
-          The Medical Study Database
-        {% endblock %}
-    </title>
-</head>
-
-{% extends 'rango/base.html' %}
-{% load staticfiles %}
-
-{% block title_block %}
-	Homepage
-{% endblock %}
 
 {% block body_block %}
 
@@ -59,7 +41,7 @@
         <h2>Help Scienties, <br> Make Money</h2>
         <p>You can search by category of medical experiment, location of the experiment, and payment per hour.</p>
         <p><a class="btn btn-secondary" href="{% url 'student:register' %}" role="button" style="width:150px">Join us</a></p>
-        <p><a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:150px">Login</a></p>
+        <p><a class="btn btn-secondary" href="{% url 'student:login' %}" role="button" style="width:150px">Login</a></p>
       </div>
 
     </div>

@@ -6,8 +6,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-
-
 </head>
 {% block body_block %}
 <body>
@@ -15,10 +13,10 @@ expr home
  <br />
 <a href = "{% url 'experimenter:logout' %}">Logout</a>
 <a href = "{% url 'experimenter:createexpr' %}">Create</a>
-
+<div class="container">
 {% if expr %}
     {% for e in expr %}
-
+        {% if e.expr_done == False %}
         <br />
         <div class="{{e.name}}">
         <h2>{{ e.name }}</h2>
@@ -37,6 +35,14 @@ expr home
         {% endfor %}
         {% endif %}
             </ul>
+             {% if e.expr_full %}
+            <h5>Experiment full</h5>
+            {% endif %}
+            <button id="close" class="btn-outline-success" value="{{e.name}}">experiment complete</button>
+            {% else %}
+            <h5>Completed expr</h5>
+            <li>{{e.name}}</li>
+            {% endif %}
     {% endfor %}
 
 {% else %}
@@ -46,20 +52,18 @@ expr home
 
 
 <p id="d"></p>
+
+</div>
 </div>
 
-
 </body>
-
-
-
 
 
 <script>
  $(document).ready(function() {
      $('.blue').css('color', 'blue');
      $("span").click(function(){
-         $('#d').empty()
+         $('#d').empty();
          var name = $(this).attr('value')
          $.get('/student/displaydetails/',
              {'name': name},
@@ -85,14 +89,26 @@ expr home
              }
              )
      })
- })
+ });
 
  $(document).ready(function() {
-     $(".decline").click(function () {
+     $("#close").click(function () {
          var name = $(this).attr('value')
          var expr = $(this).closest('div').prop('className');
          $.get('/experimenter/decline/',
              {'expr':expr,'student': name},
+             function(){
+                location.reload()
+             }
+             )
+     })
+ })
+
+ $(document).ready(function() {
+     $("#close").click(function () {
+         var name = $(this).attr('value')
+         $.get('/experimenter/close/',
+             {'expr':name},
              function(){
                 location.reload()
              }

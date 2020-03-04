@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -14,6 +15,33 @@ from django.core import serializers
 
 def mainhome(request):
     return render(request, 'home/index.html')
+
+def viewall(request):
+    acceptedexpr = []
+    waitingexpr = []
+    try:
+        student = request.COOKIES.get('student')
+        context = {'student':student}
+        if student == None:
+            raise Experiment
+        ds = Demsurv.objects.get(user=request.user)
+        s_i = StudentInfo.objects.get(user=request.user)
+        for i in s_i.bidexpr.all():
+            waitingexpr.append(i.id)
+
+        for i in s_i.currentexpr.all():
+            acceptedexpr.append(i.id)
+        context['accepted'] = acceptedexpr
+        context['waiting'] = waitingexpr
+        print(context)
+        return render(request, 'home/viewall.html', context=context)
+    except Exception as e:
+        if type(e).__name__ == 'DoesNotExist':
+            return HttpResponse('you must do the dem surv before bidding')
+        else:
+            return render(request, 'home/viewall.html')
+
+
 
 
 @login_required
@@ -40,7 +68,9 @@ def home(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect(reverse('student:home'))
+    response = redirect(reverse('student:home'))
+    response.delete_cookie('student')
+    return response
 
 
 def register(request):
@@ -49,13 +79,18 @@ def register(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         if user_form.is_valid():
-            print('1')
             user = user_form.save()
             user.set_password(user.password)
             user.save()
             student_info = StudentInfo(user=user)
             student_info.save()
-            registered = True
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            user = authenticate(username=user_form.cleaned_data['username'],
+                                    password=user_form.cleaned_data['password'],
+                                    )
+            login(request, user)
+            response = redirect(reverse('student:home'))
+            return response
         else:
             print(user_form.errors)
     else:
@@ -72,7 +107,9 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('student:home'))
+                response = redirect(reverse('student:home'))
+                response.set_cookie('student', 'true')
+                return response
             else:
                 return HttpResponse('student account disabled')
         else:

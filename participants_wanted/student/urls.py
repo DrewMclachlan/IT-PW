@@ -14,5 +14,5 @@ urlpatterns = [
     path('demsurv/', views.demsurv, name='demsurv'),
     path('profile/', views.profile, name='profile'),
     path('makebid/', views.makebid, name='makebid'),
-    path('displaydetails/', views.displaydetails, name='displaydetails')
+    path('displaydetails/', views.displaydetails, name='displaydetails'),
 ]

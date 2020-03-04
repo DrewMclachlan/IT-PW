@@ -1,269 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../media/style.css">
-<!-- make this local -->
-
-</head>
-<body>
-
-    {{ user.username }}
-
-
-<a href = "{% url 'student:logout' %}">Logout</a>
-    <br />
-
-<a href = "{% url 'student:profile' %}">profile</a>
-<a href = "{% url 'student:demsurv' %}">demsurv</a>
-    <br />
-{% if expr %}
-    <ul>
-{% for e in expr %}
-    <br />
-
-    <li id={{forloop.counter}}>title: {{ e.name }}    |||       bid: <button class="{{forloop.counter}}" value="{{e.name}}">x</button></li>
-
-        {% endfor %}
-        </ul>
-    {% else %}
-<p>no exper</p>
-{% endif %}
-    <br />
-
-
-    <h2>waiting for:</h2>
- {% if waitingexpr %}
-    <ul>
-{% for e2 in waitingexpr %}
-    <br />
-
-    <li> title: {{ e2.name }}</li>
-
-        {% endfor %}
-        </ul>
-    {% else %}
-<p>not waiting exper</p>
-{% endif %}
-
-
-
-
-
-
-
+  {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block body_block %}
+    {{ user.username }}
+<a href = "{% url 'student:logout' %}">Logout</a>
+<a href = "{% url 'student:profile' %}">profile</a>
+<a href = "{% url 'student:demsurv' %}">demsurv</a>
+  <a href = "{% url 'view' %}">make bids</a>
+
+
+
+
+
+<div class="row">
+
+  <div class="container">
+
+
+
 <form class="form-inline mt-2 mt-md-0" style = "float: right; margin-right: 5%">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
 <br><br><br>
-<div class="row">
 
 
-    <div class="container">
-      <div class="card-deck mb-3 text-center">
-      <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active Expr</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="waiting-tab" data-toggle="tab" href="#waiting" role="tab" aria-controls="waiting" aria-selected="false">Waiting for reply</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="past-tab" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">Past Expr</a>
+  </li>
+</ul>
 
-          <span id="card1" style="CURSOR: hand ; color: blue" onclick="if(plain1.style.display=='none')
-          {plain1.style.display=''; card1.innerText = 'close'} else {plain1.style.display='none'; card1.innerText = 'expand'}"> expand </span>
-          <div id="plain1" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="active" role="tabpanel" aria-labelledby="active-tab">
+  <br/>
+  {% if acceptedexpr %}
+  {% for e in acceptedexpr %}
+
+      <div class="col-sm-4 order-md-1">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{e.name}}</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>{{e.start_date}}</li>
+              <li>{{e.price}}</li>
+              <li>{{e.end_date}}</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
+    {% endfor %}
+    {% else %}
+    <p>Not been accepted for any expr</p>
+    {% endif %}
+  </div>
 
-          <span id="card2" style="CURSOR: hand ; color: blue" onclick="if(plain2.style.display=='none')
-          {plain2.style.display=''; card2.innerText = 'close'} else {plain2.style.display='none'; card2.innerText = 'expand'}"> expand </span>
-          <div id="plain2" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
+  <div class="tab-pane" id="waiting" role="tabpanel" aria-labelledby="waiting-tab">
+    <br/>
+  {% if waitingexpr %}
+  {% for e2 in waitingexpr %}
+
+      <div class="col-sm-4 order-md-1">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{e2.name}}</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>{{e2.start_date}}</li>
+              <li>{{e2.price}}</li>
+              <li>{{e2.end_date}}</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
-          <span id="card3" style="CURSOR: hand ; color: blue" onclick="if(plain3.style.display=='none')
-          {plain3.style.display=''; card3.innerText = 'close'} else {plain3.style.display='none'; card3.innerText = 'expand'}"> expand </span>
-          <div id="plain3" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
+    {% endfor %}
+    {% else %}
+    <p>Not waiting for any expr</p>
+    {% endif %}
+  </div>
+
+  <div class="tab-pane" id="past" role="tabpanel" aria-labelledby="past-tab">
+     <br/>
+  {% if pastexpr %}
+  {% for e3 in pastexpr %}
+
+      <div class="col-sm-4 order-md-1">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{e3.name}}</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>{{e3.start_date}}</li>
+              <li>{{e3.price}}</li>
+              <li>{{e3.end_date}}</li>
+            </ul>
+          </div>
         </div>
       </div>
-
-
-    </div>
-
-
-          <div class="card-deck mb-3 text-center">
-
-      <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
-          <span id="card4" style="CURSOR: hand ; color: blue" onclick="if(plain4.style.display=='none')
-          {plain4.style.display=''; card4.innerText = 'close'} else {plain4.style.display='none'; card4.innerText = 'expand'}"> expand </span>
-          <div id="plain4" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
-        </div>
-      </div>
-      <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
-          <span id="card5" style="CURSOR: hand ; color: blue" onclick="if(plain5.style.display=='none')
-          {plain5.style.display=''; card5.innerText = 'close'} else {plain5.style.display='none'; card5.innerText = 'expand'}"> expand </span>
-          <div id="plain5" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
-        </div>
-      </div>
-      <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
-          <span id="card6" style="CURSOR: hand ; color: blue" onclick="if(plain6.style.display=='none')
-          {plain6.style.display=''; card6.innerText = 'close'} else {plain6.style.display='none'; card6.innerText = 'expand'}"> expand </span>
-          <div id="plain6" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
-        </div>
-      </div>
-
-    </div>
-
-
-          <div class="card-deck mb-3 text-center">
-      <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
-          <span id="card7" style="CURSOR: hand ; color: blue" onclick="if(plain7.style.display=='none')
-          {plain7.style.display=''; card7.innerText = 'close'} else {plain7.style.display='none'; card7.innerText = 'expand'}"> expand </span>
-          <div id="plain7" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
-        </div>
-      </div>
-
-            <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
-          <span id="card8" style="CURSOR: hand ; color: blue" onclick="if(plain8.style.display=='none')
-          {plain8.style.display=''; card8.innerText = 'close'} else {plain8.style.display='none'; card8.innerText = 'expand'}"> expand </span>
-          <div id="plain8" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
-        </div>
-      </div>
-
-            <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Some Lab Study</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Date: </li>
-            <li>£10 /h </li>
-            <li>Bid</li>
-          <span id="card9" style="CURSOR: hand ; color: blue" onclick="if(plain9.style.display=='none')
-          {plain6.style.display=''; card9.innerText = 'close'} else {plain9.style.display='none'; card9.innerText = 'expand'}"> expand </span>
-          <div id="plain9" style="display: none"> <HR> details <HR> </div>
-          </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Apply</button>
-        </div>
-      </div>
-
-
-    </div>
-    </div>
+    {% endfor %}
+    {% else %}
+    <p>No past expr</p>
+    {% endif %}
+  </div>
 
 </div>
-
-
-
-<div class="card-deck mb-3 text-center">
-
-
   </div>
+</div>
 
 {% endblock %}
 
-
-
-<script>
- $(document).ready(function() {
-     var username = "{{user.username}}";
-     var u_id = "{{user.id}}";
-     console.log(u_id)
-     $("button").click(function () {
-         var id = '#' + $(this).attr('class');
-         var name = $(this).attr('value')
-         $(id).remove()
-         $.get('/student/makebid/',
-             {'expr_name': name, 'username':username, 'u_id':u_id},
-             function(){
-                location.reload()
-             }
-             )
-     })
- })
-
-
-</script>
-
-</body>
-</html>

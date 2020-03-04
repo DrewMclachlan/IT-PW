@@ -13,6 +13,7 @@ urlpatterns = [
     path('accept/', views.accept, name='accept'),
     path('decline/', views.decline, name='decline'),
     path('getall/', views.getall, name='getall'),
-    path('createexpr/', views.createExperemnt, name='createexpr')
+    path('createexpr/', views.createExperemnt, name='createexpr'),
+    path('close/', views.close, name='close')
 
 ]
