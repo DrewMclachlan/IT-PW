@@ -20,16 +20,45 @@ def populate():
     'num_req': '8', 'num_current': '0', 'age_req': '18',
     'lang_req': 'English', 'ed_req': 'none'},]
 
+    expr2 = [
+    {'name': 'Mathematical Study', 'details':
+    '''
+    This experiment will study what happens when you ask people to count grains
+    of sand in various containers over the course of 14 days.
+    ''',
+    'price': '11', 'start_date': '05/05/20', 'end_date': '19/05/20',
+    'num_req': '4', 'num_current': '0', 'age_req': '16',
+    'lang_req': 'any', 'ed_req': 'none'},]
+
+    expr3 = [
+    {'name': 'Patience Test', 'details':
+    '''
+    This experiment involves watching Kevin Costner's 1997 film The Postman 40
+    times in 3 days. At no point will the reason for this be explained to any
+    of the participants.
+    ''',
+    'price': '14', 'start_date': '01/04/20', 'end_date': '04/04/20',
+    'num_req': '8', 'num_current': '0', 'age_req': '18',
+    'lang_req': 'English', 'ed_req': 'none'},]
 
 
+    expr4 = [
+    {'name': 'TikTok Test', 'details':
+    '''
+    This experiment will seek to answer the question: has anyone over the age
+    of 50 heard of TikTok?
+    ''',
+    'price': '9', 'start_date': '15/05/20', 'end_date': '16/05/20',
+    'num_req': '12', 'num_current': '0', 'age_req': '50',
+    'lang_req': 'English', 'ed_req': 'none'},]
 
-    # name = models.CharField(unique=True, max_length=128)
-    # details = models.CharField(max_length=128)
-    # price = models.IntegerField(default=0)
-    # start_date = models.DateField()
-    # end_date = models.DateField()
-    # num_req = models.IntegerField(default=0)
-    # num_current = models.IntegerField(default=0)
-    # age_req = models.IntegerField(default=0)
-    # lang_req = models.CharField(max_length=128)
-    # ed_req = models.CharField(max_length=128)
+    expr5 = [
+    {'name': 'Perseverence Study', 'details':
+    '''
+    This experiment involves writing out every times table from 1 to 100 using
+    a quill, ink and parchment. And the end of each day, researchers will feed
+    the finished work into a shredder.
+    ''',
+    'price': '20', 'start_date': '01/04/20', 'end_date': '04/04/20',
+    'num_req': '8', 'num_current': '0', 'age_req': '18',
+    'lang_req': 'English', 'ed_req': 'none'},]
