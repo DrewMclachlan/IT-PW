@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
+
 
 <html lang="en">
 <head>
@@ -40,7 +42,7 @@
       <div class="col-md-8 order-md-1">
     <form id="user_form" method="post" action="{% url 'student:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ user_form.as_p }}
+    {{ user_form|crispy }}
         <button class="btn btn-primary btn-lg btn-block"  value="submit" type="submit">Register</button>
       </form>
       </div>
