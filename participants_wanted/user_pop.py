@@ -3,7 +3,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'participants_wanted.settings')
 import django
 django.setup()
 from django.contrib.auth.models import User
-from experimenter.models import ExprProfile
+from experimenter.models import
 
 
 def add_expr(expr, exprp):
@@ -23,7 +23,7 @@ def add_expr(expr, exprp):
 
 
 
-expr = [{
+expr_u = [{
     'username':'expr',
     'email':'expr@account.com',
     'password': 'test'

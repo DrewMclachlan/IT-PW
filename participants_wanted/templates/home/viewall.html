@@ -16,9 +16,9 @@
 	    var x = '{{student}}';
 	    var accepted = '{{accepted}}';
 	    var waiting = '{{waiting}}';
-	    console.log(x)
 	    var username = "{{user.username}}";
         var u_id = "{{user.id}}";
+        var counter = 0;
          $.get('/experimenter/getall/', function(exprs){
                       	    console.log(exprs)
             console.log(exprs[0].fields.expr_full)
@@ -35,12 +35,13 @@
                         '<li>' + exprs[i].fields.start_date + '</li>' +
                         '<li>' + exprs[i].fields.price + '</li>' +
                         '<li>' + exprs[i].fields.end_date + '</li>' +
-                        '<span id = "' + exprs[i].fields.name + '" class="collapse">' +
+                        '<span id = "span' + counter + '" class="collapse">' +
                         '<li>' + exprs[i].fields.details + '</li>' +
                         '<li>' + exprs[i].fields.num_req + '</li>' +
                         '<li>' + exprs[i].fields.num_current + '</li>' +
                         '</span>' +
                         '</ul> ' +
+                        '<button type="button" class="btn-primary" data-toggle="collapse" data-target="#span' + counter + '">See Details</button>' +
                         '</div>' +
                         '</div>' +
                         '</div>'
@@ -49,29 +50,26 @@
                         if (accepted.includes(exprs[i].pk)) {
                             $('#' + i).append(
                                 '<div class="btn-group btn-group-sm" role="group">' +
-                                '<button type="button" class="btn-primary" data-toggle="collapse" data-target="#' + exprs[i].fields.name + '">See Details</button>' +
                                 '<button type="button" class="btn-dark" value="' + exprs[i].fields.name + '" disabled>Already accepted</button>' +
                                 '</div>')
                         } else if (waiting.includes(exprs[i].pk)) {
                             $('#' + i).append(
                                 '<div class="btn-group btn-group-sm" role="group">' +
-                                '<button type="button" class="btn-primary" data-toggle="collapse" data-target="#' + exprs[i].fields.name + '">See Details</button>' +
                                 '<button type="button" class="btn-warning" value="' + exprs[i].fields.name + '" disabled>Awaiting response</button>' +
                                 '</div>')
                         } else {
                             $('#' + i).append(
                                 '<div class="btn-group btn-group-sm" role="group">' +
-                                '<button type="button" class="btn-primary" data-toggle="collapse" data-target="#' + exprs[i].fields.name + '">See Details</button>' +
                                 '<button id="' + i + '" type="button" class="btn-success" value="' + exprs[i].fields.name + '" >Bid</button>' +
                                 '</div>'
                             )
                         }
-                    } else {
-                        $('#' + i).append(
-                            '<button type="button" class="btn btn-lg btn-block btn-primary" data-toggle="collapse" data-target="#' + exprs[i].fields.name + '">See Details</button>'
-                        )
                     }
+
+
+
                 }
+                counter ++
             }
 		 })
 
