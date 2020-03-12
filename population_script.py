@@ -118,13 +118,14 @@ def populate():
 
 
 def add_expr_name(name):
-    e = Category.objects.get_or_create(name=name)[0]
+    e = Experiment.objects.get_or_create(name=name)[0]
     e.save()
     return e
 
 
-def add_expr(experiment, name, price=0, start_date, end_date, num_req,
+def add_expr(experiment, name, details, price=0, start_date, end_date, num_req,
 num_current, age_req=0, lang_req, ed_req):
+
     e = Experiment.objects.get_or_create(experiment=experiment, name=name,
     details=details, price=price,start_date=start_date,end_date=end_date,
     num_req=num_req, num_current=num_current, age_req=age_req,
