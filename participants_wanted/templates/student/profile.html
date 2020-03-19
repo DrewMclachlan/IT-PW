@@ -2,28 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../media/style.css">
+    <title>
+         MSD -
+        {% block title_block %}
+          The Medical Study Database
+        {% endblock %}
+    </title>
+
 </head>
 <body>
-<h1>Profile pic</H1>
-<img src="{{ MEDIA_URL }}{{ info.picture }}" alt="profile pic"/>
-Your info
-<br />
-{{ info.age }}
-<br />
-{{ info.sex }}
-<br />
-    {{ info.age }}
-<br />
-    {{ info.language }}
-<br />
-    {{ info.country }}
-<br />
-    {{ info.education }}
+<div style="border:1px; width:600px; margin:auto;">
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header" style="text-align: center;">
+      <h4 class="my-0 font-weight-normal" >Your Information</h4>
+    </div>
+    <div class="card-body" style="border:1px; width:100%; margin:auto;">
 
+  <div class="row" >
+  	    <div class="col-md-4 order-md-2 mb-4"  >
+          <div class="mb-3">
+            <h5>Profile pic</h5>
+            	<img src="{{ MEDIA_URL }}{{ info.picture }}" alt="profile pic"/>
+          </div>
+      </div>
 
-<a href = "{% url 'student:home' %}">home</a>
+<div class="col-md-7 order-md-2 mb-4"  >
+          <div class="mb-3">
+            <label for="firstName"><h7>Sex:</h7> {{ info.sex }}</h7></label>
+          </div>
 
+          <div class="mb-3">
+            <label for="firstName"><h7>Age: {{ info.age }}</h7></label>
+          </div>
+
+          <div class="mb-3">
+            <label for="firstName"><h7>Language: {{ info.language }}</h7></label>
+          </div>
+
+          <div class="mb-3">
+            <label for="firstName"><h7>Country: {{ info.country }}</h7></label>
+          </div>
+
+          <div class="mb-3">
+            <label for="firstName"><h7>Education Status: {{ info.education }}</h7></label>
+          </div>
+</div>
+</div>
+
+        <hr class="mb-4">
+        <a href = "{% url 'student:home' %}" class="btn btn-primary btn-lg btn-block" type="submit" style="border:1px; width:70%; margin:auto;">home</a>
+
+      
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
+
+

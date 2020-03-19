@@ -9,28 +9,15 @@
 
 
 <body class="bg-light" data-gr-c-s-loaded="true">
-	      	<div style="border:1px; width:800px; margin:auto;">
+	      	<div style="border:10px; width:800px; margin:auto;">
     <div class="container">
   <div class="py-5 text-center">
     <h2>Demographic Survey</h2>
     <p class="lead">Tell us about yourself</p>
   </div>
 
-  <div class="row" >
-    <div class="col-md-4 order-md-2 mb-4" >
-    	      <div class="col-lg-4" style="border:1px; width:100%; margin:auto;" >
-    	      	<br><br><br><br>
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Student</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <br><br><br>
-        <p><a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:150px">Upload Photo</a></p>
-      </div>
-
-    </div>
-
-
-    <div class="col-md-8 order-md-1" >
-      <h4 class="mb-3" style="text-align: center">Demographic survey</h4>
-        <div class="row" >
+    <div class="col-md-10 order-md-1" >
+    
         <form id="user_form" method="post" action="{% url 'student:demsurv' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ dem_form|crispy }}
@@ -39,6 +26,9 @@
 <input class="btn btn-primary btn-lg btn-block" style="border:1px; margin:auto; width:300px" type="submit" name="submit" value="Submit" /> </form>
 </div>
 </div>
+</div>
+</body>
+</html>
 
 
 
