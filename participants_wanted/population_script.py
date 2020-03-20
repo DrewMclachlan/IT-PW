@@ -109,6 +109,50 @@ def populate():
      'age_req': '18',
     'lang_req': 'English',
      'ed_req': 'none'},
+
+    {'name': 'Movie Study',
+     'details': "This study was created after an argument between two "+
+     "researchers on a prior study involving films. To settle this "+
+     "argument, participants in the Movie Study will be shown each "+
+     "researcher's favourite film and asked to pick the best one.",
+    'price': '8',
+     'start_date': '2020-05-19',
+     'end_date': '2020-05-20',
+    'num_req': '20',
+     'num_current': '0',
+     'age_req': '18',
+    'lang_req': 'English',
+     'ed_req': 'none'},
+
+    {'name': 'Alcohol Study',
+     'details': "Participants in this study will be given two "+
+     "single-question IQ tests. In-between, they will spend six hours "+
+     "drinking alcohol. Researchers will measure the participants' "+
+     "expected drop in IQ by asking them whether they'd like to eat "+
+     "a four-day-old kebab.",
+    'price': '10',
+     'start_date': '2020-06-05',
+     'end_date': '2020-06-06',
+    'num_req': '7',
+     'num_current': '0',
+     'age_req': '18',
+    'lang_req': 'none',
+     'ed_req': 'none'},
+
+    {'name': 'Parenthood Study',
+     'details': "This study will involve the particpants being " +
+     "tested on their suitablity for parenthood. Each partipant will " +
+     "spend three hours a day trying to explain a series of important " +
+     "life lessons to a child while being asked 'why?' sixteen thousand " +
+     "times. Anyone who lasts the full five days will receive a bonus.",
+    'price': '15',
+     'start_date': '2020-05-20',
+     'end_date': '2020-05-24',
+    'num_req': '10',
+     'num_current': '0',
+     'age_req': '18',
+    'lang_req': 'English',
+     'ed_req': 'none'},
     ]
 
     return li
