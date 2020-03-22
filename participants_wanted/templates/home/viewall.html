@@ -4,17 +4,10 @@
 <html lang="en">
 
 
-
-
-
-
-
-
 {% block body_block %}
 <script>
-
-
 	$(document).ready(function() {
+
 	    var username = "{{user.username}}";
         var u_id = "{{user.id}}";
          $.get('/experimenter/getall/', function(data){
@@ -37,6 +30,9 @@
         var x = '{{student}}';
 	    var accepted = '{{accepted}}';
 	    var waiting = '{{waiting}}';
+	    var age = '{{demsurv.age}}';
+        var lang = '{{demsurv.language}}';
+        var ed = '{{demsurv.education}}';
 	            var counter = 0;
          	for(i in exprs) {
                 if (exprs[i].fields.expr_done === false && exprs[i].fields.expr_full === false ) {
@@ -65,9 +61,17 @@
                         '</div>' +
                         '</div>' +
                         '</div>'
-                    )
+                    );
                     if (x === 'true') {
-                        if (accepted.includes(exprs[i].pk)) {
+                        var one = det(exprs[i].fields.ed_req);
+                        var two = det(ed)
+                        console.log(one, two)
+                        if(age < exprs[i].fields.age_req || lang !== exprs[i].fields.lang_req || one > two ){
+                            $('#' + i).append(
+                                '<div class="btn-group btn-group-sm" role="group">' +
+                                '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Do not meet req</button>' +
+                                '</div>')
+                        } else if (accepted.includes(exprs[i].pk)) {
                             $('#' + i).append(
                                 '<div class="btn-group btn-group-sm" role="group">' +
                                 '<button type="button" class="btn-dark" value="' + exprs[i].fields.name + '" disabled>Already accepted</button>' +
@@ -93,6 +97,31 @@
             }
 		 }
 
+function det(ver){
+	    var x = 0;
+	    console.log(ver)
+    switch(ver){
+        case 'Postgraduate':
+            x = 4;
+            break;
+        case 'Undergraduate':
+            x = 3;
+            break;
+        case 'College':
+            x = 2;
+            break;
+        case 'School':
+            x = 1;
+            break;
+        case 'None':
+            x = 0;
+            break;
+        default:
+            break;
+    }
+    return x
+    }
+
  function search() {
         var expr = []
         var filter = document.getElementById('value').value;
@@ -116,6 +145,7 @@
 
 </script>
 
+
 <div class="container">
     <form onkeydown="return event.key != 'Enter';" class="form-inline mt-2 mt-md-0" style = "float: right; margin-right: 5%">
         <select id="value">
@@ -132,6 +162,7 @@
 {% if user.is_authenticated %}
     {% if student %}
     <h3><a href = "{% url 'student:home' %}">Back</a></h3>
+
     {% else %}
     <h3><a href = "{% url 'experimenter:home' %}">Back</a></h3>
     {% endif %}

@@ -33,7 +33,8 @@ def viewall(request):
             acceptedexpr.append(i.id)
         context['accepted'] = acceptedexpr
         context['waiting'] = waitingexpr
-        print(context)
+        context['demsurv'] = ds
+
         return render(request, 'home/viewall.html', context=context)
     except Exception as e:
         if type(e).__name__ == 'DoesNotExist':
