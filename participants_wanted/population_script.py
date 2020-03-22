@@ -11,12 +11,6 @@ from experimenter.models import Experiment, ExprProfile
 
 
 def set_expr():
-    expr_u = [{
-        'username': 'expr',
-        'email': 'expr@account.com',
-        'password': 'test'
-    }]
-
     expr_profile = [{
         'title': 'Prof',
         'school': 'CompSci',
@@ -24,7 +18,7 @@ def set_expr():
         'schoolemail': 'expr@compsci.gu.com',
         'publicnumber': '0000000'
     }]
-    add_user(expr_u[0], expr_profile[0])
+    add_user(expr_profile[0])
 
 def populate():
     li = [
@@ -160,11 +154,8 @@ def populate():
 
 
 
-def add_user(expru, exprp):
-    u = User.objects.create()
-    u.username = expru['username']
-    u.email = expru['email']
-    u.password = expru['password']
+def add_user(exprp):
+    u = User.objects.create_user('expr', password='test')
     u.save()
     ep = ExprProfile.objects.create(user=u)
     ep.title = exprp['title']

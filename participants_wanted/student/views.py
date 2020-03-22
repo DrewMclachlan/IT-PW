@@ -103,7 +103,10 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username = username, password = password)
-        ##need to add an aspect of checking for student satus
+        try:
+            i = StudentInfo.objects.get(user=user)
+        except ObjectDoesNotExist:
+            return HttpResponse('This is the student login, you have a expr account')
         if user:
             if user.is_active:
                 login(request, user)
