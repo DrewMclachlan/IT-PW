@@ -12,16 +12,32 @@
 
 {% block body_block %}
 <script>
+
+
 	$(document).ready(function() {
-	    var x = '{{student}}';
-	    var accepted = '{{accepted}}';
-	    var waiting = '{{waiting}}';
 	    var username = "{{user.username}}";
         var u_id = "{{user.id}}";
-        var counter = 0;
-         $.get('/experimenter/getall/', function(exprs){
-                      	    console.log(exprs)
-            console.log(exprs[0].fields.expr_full)
+         $.get('/experimenter/getall/', function(data){
+             load(data)
+         });
+
+        $(document).on('click', '.btn-success', function() {
+            var name = $(this).attr('value');
+            $.get('/student/makebid/',
+                {'expr_name': name, 'username':username, 'u_id':u_id}, function(){
+                location.reload()
+                }
+
+             )
+        })
+     });
+
+
+	function load(exprs){
+        var x = '{{student}}';
+	    var accepted = '{{accepted}}';
+	    var waiting = '{{waiting}}';
+	            var counter = 0;
          	for(i in exprs) {
                 if (exprs[i].fields.expr_done === false && exprs[i].fields.expr_full === false ) {
                     $('#append').append(
@@ -39,6 +55,10 @@
                         '<li>' + exprs[i].fields.details + '</li>' +
                         '<li>' + exprs[i].fields.num_req + '</li>' +
                         '<li>' + exprs[i].fields.num_current + '</li>' +
+                        '<h5>Requirements:</h5>' +
+                        '<li>' + exprs[i].fields.age_req + '</li>' +
+                        '<li>' + exprs[i].fields.lang_req + '</li>' +
+                        '<li>' + exprs[i].fields.ed_req + '</li>' +
                         '</span>' +
                         '</ul> ' +
                         '<button type="button" class="btn-primary" data-toggle="collapse" data-target="#span' + counter + '">See Details</button>' +
@@ -71,23 +91,44 @@
                 }
                 counter ++
             }
-		 })
+		 }
 
-
-        $(document).on('click', '.btn-success', function() {
-            var name = $(this).attr('value');
-            $.get('/student/makebid/',
-                {'expr_name': name, 'username':username, 'u_id':u_id}, function(){
-                location.reload()
+ function search() {
+        var expr = []
+        var filter = document.getElementById('value').value;
+        var value = document.getElementById('searchvar').value;
+        $.get('/experimenter/getall/', function (data) {
+            for (i in data) {
+                if (data[i].fields[filter] == value) {
+                    expr.push(data[i])
                 }
+            }
+            if(expr.length > 0){
+                $( "#append" ).empty();
+                load(expr)
+            }else{
+                console.log('add result thing here')
+            }
 
-             )
-        })
-     });
+        });
+    }
 
-	</script>
+
+</script>
 
 <div class="container">
+    <form onkeydown="return event.key != 'Enter';" class="form-inline mt-2 mt-md-0" style = "float: right; margin-right: 5%">
+        <select id="value">
+        <option value="name">Name</option>
+        <option value="age_req">Age</option>
+        <option value="lang_req">Language</option>
+        <option value="ed_req">Education</option>
+        </select>
+        <input id="searchvar" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="search()">Search</button>
+    </form>
+
+<br><br><br>
 {% if user.is_authenticated %}
     {% if student %}
     <h3><a href = "{% url 'student:home' %}">Back</a></h3>

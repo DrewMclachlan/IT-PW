@@ -34,7 +34,7 @@ def populate():
      'num_current': '0',
      'age_req': '18',
     'lang_req': 'English',
-     'ed_req': 'none'},
+     'ed_req': 'College'},
 
      {'name': 'Wonderpill Trial',
      'details': "Participants in this study will be testing the " +
@@ -49,8 +49,8 @@ def populate():
     'num_req': '50',
      'num_current': '0',
      'age_req': '18',
-    'lang_req': 'none',
-     'ed_req': 'none'},
+    'lang_req': 'English',
+     'ed_req': 'College'},
 
 
     {'name': 'Dloo-Xion5 Trial',
@@ -66,7 +66,7 @@ def populate():
      'num_current': '0',
      'age_req': '18',
     'lang_req': 'English',
-     'ed_req': 'none'},
+     'ed_req': 'College'},
 
 
     {'name': 'Mathematical Study',
@@ -79,8 +79,8 @@ def populate():
     'num_req': '4',
      'num_current': '0',
      'age_req': '16',
-    'lang_req': 'any',
-     'ed_req': 'none'},
+    'lang_req': 'English',
+     'ed_req': 'College'},
 
     {'name': 'TikTok Test',
      'details': "This experiment will seek to answer the question: has anyone "+
@@ -92,7 +92,7 @@ def populate():
      'num_current': '0',
      'age_req': '50',
     'lang_req': 'English',
-     'ed_req': 'none'},
+     'ed_req': 'School'},
 
 
     {'name': 'Patience Test',
@@ -106,7 +106,7 @@ def populate():
      'num_current': '0',
      'age_req': '18',
     'lang_req': 'English',
-     'ed_req': 'none'},
+     'ed_req': 'School'},
 
 
     {'name': 'Perseverence Study',
@@ -120,7 +120,7 @@ def populate():
      'num_current': '0',
      'age_req': '18',
     'lang_req': 'English',
-     'ed_req': 'none'},
+     'ed_req': 'School'},
 
 
     {'name': 'Confidence Test',
@@ -135,7 +135,7 @@ def populate():
      'num_current': '0',
      'age_req': '18',
     'lang_req': 'English',
-     'ed_req': 'none'},
+     'ed_req': 'School'},
 
     {'name': 'Movie Study',
      'details': "This study was created after an argument between two "+
@@ -149,7 +149,7 @@ def populate():
      'num_current': '0',
      'age_req': '18',
     'lang_req': 'English',
-     'ed_req': 'none'},
+     'ed_req': 'School'},
 
     {'name': 'Alcohol Study',
      'details': "Participants in this study will be given two "+
@@ -163,8 +163,8 @@ def populate():
     'num_req': '7',
      'num_current': '0',
      'age_req': '18',
-    'lang_req': 'none',
-     'ed_req': 'none'},
+    'lang_req': 'English',
+     'ed_req': 'College'},
 
     {'name': 'Parenthood Study',
      'details': "This study will involve the particpants being " +
@@ -179,7 +179,7 @@ def populate():
      'num_current': '0',
      'age_req': '18',
     'lang_req': 'English',
-     'ed_req': 'none'},
+     'ed_req': 'College'},
     ]
 
     return li
@@ -189,6 +189,7 @@ def populate():
 
 def add_user(exprp):
     u = User.objects.create_user('expr', password='test')
+    u
     u.save()
     ep = ExprProfile.objects.create(user=u)
     ep.title = exprp['title']
