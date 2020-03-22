@@ -123,6 +123,7 @@ def accept(request):
         if expr.num_req == expr.num_current:
             expr.expr_full = True
         s_i = StudentInfo.objects.get(user__username=student)
+        s_i.notifications = s_i.notifications + 1
         s_i.currentexpr.add(expr)
         s_i.bidexpr.remove(expr)
         s_i.save()
@@ -143,6 +144,8 @@ def decline(request):
         expr.students.remove(user)
         s_i = StudentInfo.objects.get(user__username=student)
         s_i.bidexpr.remove(expr)
+        s_i.decexpr.add(expr)
+        s_i.decline = s_i.decline + 1
         s_i.save()
         expr.save()
     except ObjectDoesNotExist:

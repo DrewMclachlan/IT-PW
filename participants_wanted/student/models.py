@@ -9,7 +9,6 @@ class Demsurv(models.Model):
     COUNTRY = (('UK', 'UK'), ('EU', 'EU'), ('Others', 'Others'))
     EDUCATION = (('None', 'None'),('School', 'School'), ('College', 'College'), ('Undergraduate', 'Undergraduate'), ('Postgraduate', 'Postgraduate'))
 
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     sex = models.CharField(max_length=128, choices=SEX)
     age = models.IntegerField(choices=AGE, default=0)
@@ -27,7 +26,9 @@ class StudentInfo(models.Model):
     bidexpr = models.ManyToManyField(Experiment, blank=True, related_name='bidexpr')
     currentexpr = models.ManyToManyField(Experiment, blank=True, related_name='currentexpr')
     pastexpr = models.ManyToManyField(Experiment, blank=True, related_name='pastexpr')
-
+    decexpr = models.ManyToManyField(Experiment, blank=True, related_name='decexpr')
+    notifications = models.IntegerField(default=0)
+    decline = models.IntegerField(default=0)
     def __str__(self):
         return self.user.username
 

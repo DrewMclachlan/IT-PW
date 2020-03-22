@@ -2,6 +2,9 @@
 {% load staticfiles %}
 <html lang="en">
 <head>
+    <script>
+
+    </script>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}style.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -20,6 +23,7 @@
         <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">MSD</a></h5>
         <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/view">View all experiments</a></h5>
     {% if user.is_authenticated %}
+
     <nav class="my-2 my-md-0 mr-md-3">
         <h5 class="p-2 text-dark" >Logged in as: {{user.username}}</h5>
     </nav>

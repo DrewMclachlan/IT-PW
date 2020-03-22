@@ -19,6 +19,8 @@ def mainhome(request):
 def viewall(request):
     acceptedexpr = []
     waitingexpr = []
+    declined = []
+
     try:
         student = request.COOKIES.get('student')
         context = {'student':student}
@@ -31,6 +33,11 @@ def viewall(request):
 
         for i in s_i.currentexpr.all():
             acceptedexpr.append(i.id)
+
+        for i in s_i.decexpr.all():
+            declined.append(i.id)
+
+        context['declined'] = declined
         context['accepted'] = acceptedexpr
         context['waiting'] = waitingexpr
         context['demsurv'] = ds
@@ -50,10 +57,14 @@ def home(request):
     expr = Experiment.objects.all()
     expr = expr.exclude(students__username=request.user)
     s_i = StudentInfo.objects.get(user=request.user)
+    notif = s_i.notifications
+    dec = s_i.decline
     acceptedexpr = []
     waitingexpr = []
     pastexpr = []
-
+    s_i.notifications = 0
+    s_i.decline = 0
+    s_i.save()
     for i in s_i.bidexpr.all():
         waitingexpr.append(i)
 
@@ -63,8 +74,8 @@ def home(request):
     for i in s_i.pastexpr.all():
         pastexpr.append(i)
 
-    return render(request, 'student/home.html', context={'expr': expr, 'acceptedexpr':acceptedexpr, 'waitingexpr': waitingexpr, 'pastexpr':pastexpr})
 
+    return render(request, 'student/home.html', context={'expr': expr, 'acceptedexpr':acceptedexpr, 'waitingexpr': waitingexpr, 'pastexpr':pastexpr, 'notif':notif, 'dec':dec})
 
 @login_required
 def user_logout(request):

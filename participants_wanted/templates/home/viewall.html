@@ -30,6 +30,9 @@
         var x = '{{student}}';
 	    var accepted = '{{accepted}}';
 	    var waiting = '{{waiting}}';
+	    var declined = '{{declined}}';
+	    console.log(declined);
+	    console.log(accepted)
 	    var age = '{{demsurv.age}}';
         var lang = '{{demsurv.language}}';
         var ed = '{{demsurv.education}}';
@@ -65,7 +68,6 @@
                     if (x === 'true') {
                         var one = det(exprs[i].fields.ed_req);
                         var two = det(ed)
-                        console.log(one, two)
                         if(age < exprs[i].fields.age_req || lang !== exprs[i].fields.lang_req || one > two ){
                             $('#' + i).append(
                                 '<div class="btn-group btn-group-sm" role="group">' +
@@ -75,6 +77,11 @@
                             $('#' + i).append(
                                 '<div class="btn-group btn-group-sm" role="group">' +
                                 '<button type="button" class="btn-dark" value="' + exprs[i].fields.name + '" disabled>Already accepted</button>' +
+                                '</div>')
+                        } else if (declined.includes(exprs[i].pk)) {
+                            $('#' + i).append(
+                                '<div class="btn-group btn-group-sm" role="group">' +
+                                '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Declined</button>' +
                                 '</div>')
                         } else if (waiting.includes(exprs[i].pk)) {
                             $('#' + i).append(
@@ -99,7 +106,6 @@
 
 function det(ver){
 	    var x = 0;
-	    console.log(ver)
     switch(ver){
         case 'Postgraduate':
             x = 4;

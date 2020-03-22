@@ -92,7 +92,7 @@ expr home
  });
 
  $(document).ready(function() {
-     $("#close").click(function () {
+     $(".decline").click(function () {
          var name = $(this).attr('value')
          var expr = $(this).closest('div').prop('className');
          $.get('/experimenter/decline/',

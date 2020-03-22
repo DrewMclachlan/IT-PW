@@ -11,10 +11,13 @@
 <a href = "{% url 'student:demsurv' %}">demsurv</a>
   <a href = "{% url 'view' %}">make bids</a>
 
-
-
-
-
+  <h1>notifications:</h1>
+  {% if notif %}
+  <h3>{{notif}} experiments accepted</h3>
+  {% endif %}
+  {% if dec %}
+  <h3>{{dec}} experiments declined</h3>
+  {% endif %}
 <div class="row">
 
   <div class="container">
