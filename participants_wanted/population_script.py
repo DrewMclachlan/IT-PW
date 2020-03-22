@@ -48,7 +48,7 @@ def populate():
     "pill per day will improve your confidence, your ability to " +
     "process and follow detailed instructions, and lower your anxiety."+
     "Try this drug trial for 2 weeks and we promise you'll love the " +
-    "new you just as much as you love the air, the sun, and the robots."
+    "new you just as much as you love the air, the sun, and the robots.",
     'price': '25',
      'start_date': '2020-06-06',
      'end_date': '2020-06-20',
@@ -64,7 +64,7 @@ def populate():
     "Dloo-Xion5, a powerful formula for chemically enhancing confidence." +
     "Participants will be asked to complete a self-evaluation form at the " +
     "start and end of each day, in-between doses of Dloo-Xion5. Please be " +
-    "aware that long term use of Dloo-Xion5 may make you a bit of a t**t."
+    "aware that long term use of Dloo-Xion5 may make you a bit of a t**t.",
     'price': '15',
      'start_date': '2020-05-21',
      'end_date': '2020-06-08',
@@ -133,8 +133,7 @@ def populate():
      'details': "This experiment involves being asked a series of routine " +
      "questions on a range of different subjects. Each time a participant " +
      "answers, they will be told they're wrong and a loud horn will sound. " +
-     "After 7 days, researchers "+
-    "will measure the participants' confidence levels.",
+     "After 7 days, researchers will measure the participants' confidence levels.",
     'price': '9',
      'start_date': '2020-04-16',
      'end_date': '2020-04-23',
