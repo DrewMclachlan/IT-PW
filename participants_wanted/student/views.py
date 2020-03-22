@@ -87,9 +87,10 @@ def register(request):
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             user = authenticate(username=user_form.cleaned_data['username'],
                                     password=user_form.cleaned_data['password'],
-                                    )
+                                  )
             login(request, user)
             response = redirect(reverse('student:home'))
+            response.set_cookie('student', 'true')
             return response
         else:
             print(user_form.errors)

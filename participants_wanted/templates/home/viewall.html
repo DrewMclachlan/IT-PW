@@ -75,7 +75,7 @@
 
 
         $(document).on('click', '.btn-success', function() {
-            var name = $(this).attr('value')
+            var name = $(this).attr('value');
             $.get('/student/makebid/',
                 {'expr_name': name, 'username':username, 'u_id':u_id}, function(){
                 location.reload()
