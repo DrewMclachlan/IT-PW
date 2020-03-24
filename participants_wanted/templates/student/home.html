@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+      <link rel="stylesheet" type="text/css" href="../../media/style.css">
   {% extends 'base.html' %}
 {% load staticfiles %}
 
 {% block body_block %}
-    {{ user.username }}
-<a href = "{% url 'student:logout' %}">Logout</a>
-<a href = "{% url 'student:profile' %}">profile</a>
-<a href = "{% url 'student:demsurv' %}">demsurv</a>
-  <a href = "{% url 'view' %}">make bids</a>
-
-  <h1>notifications:</h1>
+      <div class="col-md-3 order-md-1">
+<div style="border:1px; width:200px; margin:auto;">
+    <h4> You are <h2> {{ user.username }} </h2></h4>
+    <br>
+    <hr class="mb-4">
+    <br>
+      <h4>notifications:</h4>
   {% if notif %}
   <h3>{{notif}} experiments accepted</h3>
   {% endif %}
   {% if dec %}
   <h3>{{dec}} experiments declined</h3>
   {% endif %}
-<div class="row">
+  <br>
+  <hr class="mb-4">
+  <br>
+<a href = "{% url 'student:logout' %}"class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">Logout</a>
+<a href = "{% url 'student:profile' %}"class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">profile</a>
+<a href = "{% url 'student:demsurv' %}"class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">demsurv</a>
+  <a href = "{% url 'view' %}" class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">make bids</a>
+
+</div>
+</div>
+
+
 
   <div class="container">
 
@@ -118,7 +130,8 @@
 
 </div>
   </div>
-</div>
+
+
 
 {% endblock %}
 
