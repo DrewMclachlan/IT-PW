@@ -4,15 +4,19 @@
     {% extends 'base.html' %}
 {% load staticfiles %}
     <meta charset="UTF-8">
+          <link rel="stylesheet" type="text/css" href="../../media/style.css">
     <title>Title</title>
 
 </head>
 {% block body_block %}
 <body>
+          <div class="col-md-3 order-md-1">
 expr home
+   <h4> You are <h2> {{ user.username }} </h2></h4>
  <br />
-<a href = "{% url 'experimenter:logout' %}">Logout</a>
-<a href = "{% url 'experimenter:createexpr' %}">Create</a>
+<a href = "{% url 'experimenter:logout' %}" class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">Logout</a>
+<a href = "{% url 'experimenter:createexpr' %}" class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">Create</a>
+</div>
 <div class="container">
     <div id="accordion">
 {% if expr %}
@@ -75,6 +79,7 @@ expr home
 
 
 </div>
+
 
 </body>
 
@@ -168,3 +173,29 @@ expr home
 </div>
 {% endblock %}
 </html>
+
+
+<div class="col-sm-4 order-md-1">
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Boredom Test</h4>
+        </div>
+        <div id="0" class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+                <li>2020-03-29</li>
+                <li>10</li>
+                <li>2020-03-06</li>
+                <span id="span0" class="collapse">
+                    <li>This experiment will test the human ability to endure extreme boredom.Participants will have to watch Kevin Costner's 1997 film The Postman 16times in 2 days.</li>
+                    <li>8</li>
+                    <li>0</li>
+                    <h5>Requirements:</h5>
+                    <li>18</li>
+                    <li>English</li>
+                    <li>College</li>
+                </span>
+            </ul>
+            <button type="button" class="btn-primary" data-toggle="collapse" data-target="#span0">See Details</button>
+        </div>
+    </div>
+</div>

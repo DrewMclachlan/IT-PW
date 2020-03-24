@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../../media/style.css">
+    <title>Title</title>
+</head>
+
 {% if registered %}
     <p>Thank you for registering with us.</p>
 <a href = "{% url 'experimenter:index' %}">Home</a>
@@ -16,7 +23,7 @@
       <div class="col-md-8 order-md-1">
       <form id="create_expr" method="post" action="{% url 'experimenter:createexpr' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ cexpr_form.as_p }}
+    {{ cexpr_form|crispy }}
         <button class="btn btn-primary btn-lg btn-block" value="submit" type="submit">submit</button>
         </form>
       </div>
