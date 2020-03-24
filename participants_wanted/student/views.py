@@ -87,7 +87,6 @@ def user_logout(request):
 
 def register(request):
     registered = False
-    print(request.method)
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         if user_form.is_valid():
@@ -143,7 +142,6 @@ def demsurv(request):
             if dem_form.is_valid():
                 surv = dem_form.save(commit=False)
                 surv.user = user
-                print(request.FILES)
                 if 'picture' in request.FILES:
                     surv.picture = request.FILES['picture']
                 surv.save()

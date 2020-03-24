@@ -16,9 +16,9 @@
 
         $(document).on('click', '.btn-success', function() {
             var name = $(this).attr('value');
+            $(this).remove()
             $.get('/student/makebid/',
                 {'expr_name': name, 'username':username, 'u_id':u_id}, function(){
-                location.reload()
                 }
 
              )
@@ -31,39 +31,38 @@
 	    var accepted = '{{accepted}}';
 	    var waiting = '{{waiting}}';
 	    var declined = '{{declined}}';
-	    console.log(declined);
-	    console.log(accepted)
 	    var age = '{{demsurv.age}}';
         var lang = '{{demsurv.language}}';
         var ed = '{{demsurv.education}}';
-	            var counter = 0;
+        var counter = 0;
          	for(i in exprs) {
                 if (exprs[i].fields.expr_done === false && exprs[i].fields.expr_full === false ) {
-                    $('#append').append(
-                        '<div class="col-sm-4 order-md-1">' +
-                        '<div class="card mb-4 shadow-sm">' +
+                    $('#row').append(
+                        '<div class="col-md-6">' +
+                        '<div class="card shadow-sm">' +
                         '<div class="card-header">' +
                         '<h4 class="my-0 font-weight-normal">' + exprs[i].fields.name + '</h4> ' +
                         '</div>' +
                         '<div id = "' + i + '" class="card-body"> ' +
                         '<ul class="list-unstyled mt-3 mb-4"> ' +
-                        '<li>' + exprs[i].fields.start_date + '</li>' +
-                        '<li>' + exprs[i].fields.price + '</li>' +
-                        '<li>' + exprs[i].fields.end_date + '</li>' +
+                        '<li>Start Date:' + exprs[i].fields.start_date + '</li>' +
+                        '<li>End Date:'  + exprs[i].fields.end_date + '</li>' +
+                        '<li>Price:' + exprs[i].fields.price + '</li>' +
                         '<span id = "span' + counter + '" class="collapse">' +
                         '<li>' + exprs[i].fields.details + '</li>' +
-                        '<li>' + exprs[i].fields.num_req + '</li>' +
-                        '<li>' + exprs[i].fields.num_current + '</li>' +
+                        '<li>Students Needed:' + exprs[i].fields.num_req + '</li>' +
+                        '<li>Current Students:' + exprs[i].fields.num_current + '</li>' +
                         '<h5>Requirements:</h5>' +
-                        '<li>' + exprs[i].fields.age_req + '</li>' +
-                        '<li>' + exprs[i].fields.lang_req + '</li>' +
-                        '<li>' + exprs[i].fields.ed_req + '</li>' +
+                        '<li>Age:' + exprs[i].fields.age_req + '</li>' +
+                        '<li>Language:' + exprs[i].fields.lang_req + '</li>' +
+                        '<li>Education:' + exprs[i].fields.ed_req + '</li>' +
                         '</span>' +
                         '</ul> ' +
                         '<button type="button" class="btn-primary" data-toggle="collapse" data-target="#span' + counter + '">See Details</button>' +
                         '</div>' +
-                        '</div>' +
-                        '</div>'
+                                                    '</div>' +
+
+                            '</div>'
                     );
                     if (x === 'true') {
                         var one = det(exprs[i].fields.ed_req);
@@ -150,10 +149,19 @@ function det(ver){
 
 
 </script>
-
-
 <div class="container">
+
+{% if user.is_authenticated %}
+    {% if student %}
+    <h4><a href = "{% url 'student:home' %}">Home</a></h4>
+
+    {% else %}
+    <h4><a href = "{% url 'experimenter:home' %}">Home</a></h4>
+    {% endif %}
+    {% endif %}
+
     <form onkeydown="return event.key != 'Enter';" class="form-inline mt-2 mt-md-0" style = "float: right; margin-right: 5%">
+        <p>Filter by exact requirements:</p>
         <select id="value">
         <option value="name">Name</option>
         <option value="age_req">Age</option>
@@ -163,18 +171,9 @@ function det(ver){
         <input id="searchvar" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="search()">Search</button>
     </form>
-
-<br><br><br>
-{% if user.is_authenticated %}
-    {% if student %}
-    <h3><a href = "{% url 'student:home' %}">Back</a></h3>
-
-    {% else %}
-    <h3><a href = "{% url 'experimenter:home' %}">Back</a></h3>
-    {% endif %}
-    {% endif %}
-
-		<div id = append></div>
+    <br/><br/><br/>
+    <div id="row" class="row">
+    </div>
 
 </div>
 
