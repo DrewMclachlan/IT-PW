@@ -4,9 +4,9 @@
 
 
 {% block body_block %}
-
   <main role="main">
-
+      <div class="container marketing">
+          <div class="border">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
     <div class="carousel-inner" >
@@ -25,23 +25,23 @@
   </div>
 
 
-  <div class="container marketing" >
 
     <div class="row" >
 
-      <div class="col-lg-4"style="border:1px; width:100%; margin:auto;" >
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140" ><title>Student</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+      <div class="col-lg-4" style=" border:1px; width:100%; margin:auto;" >
+
+        <img src= "../../media/expr.png" width="130" height="130" alt="">
         <h2>Find Someone, <br> Go Further</h2>
         <p>You can advertise your own experiments, and you will be notified by email and in the app when students apply.</p>
-        <p><a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:150px">Join us</a></p>
-        <p><a class="btn btn-secondary" href="{% url 'experimenter:login' %}" role="button" style="width:150px">Login</a></p>
+        <a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:100px">Join us</a>
+        <a class="btn btn-secondary" href="{% url 'experimenter:login' %}" role="button" style="width:100px">Login</a>
       </div>
-            <div class="col-lg-4" style="border:1px; width:100%; margin:auto;" >
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Student</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+        <div class="col-lg-4" style=" border:1px; width:100%; margin:auto;" >
+            <img src= "../../media/student.jpg" width="130" height="130" alt="">
         <h2>Help Scienties, <br> Make Money</h2>
         <p>You can search by category of medical experiment, location of the experiment, and payment per hour.</p>
-        <p><a class="btn btn-secondary" href="{% url 'student:register' %}" role="button" style="width:150px">Join us</a></p>
-        <p><a class="btn btn-secondary" href="{% url 'student:login' %}" role="button" style="width:150px">Login</a></p>
+        <a class="btn btn-secondary" href="{% url 'student:register' %}" role="button" style="width:100px">Join us</a>
+        <a class="btn btn-secondary" href="{% url 'student:login' %}" role="button" style="width:100px">Login</a>
       </div>
 
     </div>
@@ -49,11 +49,10 @@
 
     <hr class="featurette-divider">
 
-
+          </div>
   </div>
 
 </main>
 
 
 {% endblock %}
-</html>

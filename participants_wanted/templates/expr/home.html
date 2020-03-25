@@ -10,14 +10,18 @@
 </head>
 {% block body_block %}
 <body>
-          <div class="col-md-3 order-md-1">
-expr home
-   <h4> You are <h2> {{ user.username }} </h2></h4>
- <br />
-<a href = "{% url 'experimenter:logout' %}" class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">Logout</a>
-<a href = "{% url 'experimenter:createexpr' %}" class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">Create</a>
+      <div class="col-md-3 order-md-1" style="height: 100%;">
+<div style="border:1px; width:200px; margin:auto;">
+    <br/>
+<h4>{{ user.username }}'s home page</h4>
+    <br/>
+<a href = "{% url 'experimenter:createexpr' %}" class="btn btn-lg btn-outline-success btn-block" style="width: 150px; height: 45px">Create</a>
 </div>
+      </div>
 <div class="container">
+<br/>
+<h5>Your current experiments:</h5>
+
     <div id="accordion">
 {% if expr %}
     {% for e in expr %}
@@ -27,13 +31,14 @@ expr home
             <button class="btn btn-link float-left" data-toggle="collapse" data-target="#{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
                 {{ e.name }}</button>
               {% if e.expr_full %}
-                  <b>Experiment Full</b>
+                  <span class="badge" >Experiment Full</span>
+
                 {% endif %}
                 <button id="close" class="btn btn-outline-secondary float-right" value="{{e.name}}">Close Experiment</button>
                 {% if dict %}
                 {% for key, value in dict.items %}
                     {% if key == e.name and value|length > 0%}
-                        <span class="badge badge-danger badge-pill  r-4" >{{ value|length }}</span>
+                        <span class="badge" style="background-color:#ea0000;" >{{ value|length }}</span>
                     {% endif %}
                 {% endfor %}
                 {% endif %}
@@ -41,8 +46,8 @@ expr home
 
         <div id="{{ forloop.counter }}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
-            <p>amount needed: {{ e.num_req }}</p>
-            <p>amount current: {{ e.num_current }}</p>
+            <p>Amount of students needed: {{ e.num_req }}</p>
+            <p>Amount of students currently: {{ e.num_current }}</p>
 
         <p>Students who have bid:</p>
         {% if dict %}
@@ -69,11 +74,15 @@ expr home
     </div>
     {% for e in expr %}
         {% if e.expr_done == True %}
+            <h5>Your previous experiments:</h5>
             {{ e.name }}
             {% endif %}
     {% endfor %}
 {% else %}
-    <h3>No Experiments created</h3>
+    <h5>No Experiments created</h5>
+
+
+
 {% endif %}
     <br />
 

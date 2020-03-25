@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +13,7 @@
         {% endblock %}
     </title>
 </head>
+{% block body_block %}
 <body class="text-center" data-gr-c-s-loaded="true">
 
    		<div style="border:1px; width:300px; margin:auto;">
@@ -38,4 +41,5 @@
 </form>
     </div>
 </body>
+{% endblock %}
 </html>

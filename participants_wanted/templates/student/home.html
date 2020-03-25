@@ -6,26 +6,24 @@
 {% load staticfiles %}
 
 {% block body_block %}
-      <div class="col-md-3 order-md-1">
+      <div class="col-md-3 order-md-1" style="height: 100%;">
 <div style="border:1px; width:200px; margin:auto;">
-    <h4> You are <h2> {{ user.username }} </h2></h4>
+    <h3> {{ user.username }}'s homepage </h3>
     <br>
     <hr class="mb-4">
-    <br>
-      <h4>notifications:</h4>
+      <h5>Notifications:</h5>
   {% if notif %}
-  <h3>{{notif}} experiments accepted</h3>
+  <span class="badge" style="background-color:#ea0000;" >{{ notif }} Accepted</span>
   {% endif %}
   {% if dec %}
-  <h3>{{dec}} experiments declined</h3>
+      <span class="badge" style="background-color:#ea0000;" >{{ notif }} Declined</span>
   {% endif %}
   <br>
   <hr class="mb-4">
   <br>
-<a href = "{% url 'student:logout' %}"class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">Logout</a>
-<a href = "{% url 'student:profile' %}"class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">profile</a>
-<a href = "{% url 'student:demsurv' %}"class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">demsurv</a>
-  <a href = "{% url 'view' %}" class="btn btn-lg btn-primary btn-block" style="width: 150px; height: 45px">make bids</a>
+<a href = "{% url 'student:profile' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">View Profile</a>
+<a href = "{% url 'student:demsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Update Survey</a>
+  <a href = "{% url 'view' %}" class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Bid</a>
 
 </div>
 </div>
@@ -41,13 +39,13 @@
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active Expr</a>
+    <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active Experiments</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="waiting-tab" data-toggle="tab" href="#waiting" role="tab" aria-controls="waiting" aria-selected="false">Waiting for reply</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="past-tab" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">Past Expr</a>
+    <a class="nav-link" id="past-tab" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">Past Experiments</a>
   </li>
 </ul>
 
@@ -74,7 +72,7 @@
       </div>
     {% endfor %}
     {% else %}
-    <p>Not been accepted for any expr</p>
+    <p>You have not been accepted for any experiments</p>
     {% endif %}
   </div>
 
@@ -99,7 +97,7 @@
       </div>
     {% endfor %}
     {% else %}
-    <p>Not waiting for any expr</p>
+    <p>Not waiting for any experiments</p>
     {% endif %}
   </div>
 
@@ -124,7 +122,7 @@
       </div>
     {% endfor %}
     {% else %}
-    <p>No past expr</p>
+    <p>No past experiments</p>
     {% endif %}
   </div>
 

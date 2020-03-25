@@ -41,6 +41,8 @@
   box-sizing: border-box;
 }
 
+html,body { height:100%; }
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -19267,7 +19269,6 @@ body {
   display: flex;
   -ms-flex-align: center;
   align-items: center;
-  padding-top: 40px;
   padding-bottom: 40px;
   background-color: #f5f5f5;
 }
@@ -19304,11 +19305,6 @@ body {
 
 }
 
-body {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  color: #5a5a5a;
-}
 
 
 /* CUSTOMIZE THE CAROUSEL

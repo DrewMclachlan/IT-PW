@@ -2,15 +2,11 @@
 {% load staticfiles %}
 <html lang="en">
 <head>
-    <script>
-
-    </script>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{{MEDIA_URL}}style.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
     <title>
          MSD -
         {% block title_block %}
@@ -18,10 +14,10 @@
         {% endblock %}
     </title>
 </head>
-<body>
+	<body>
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">MSD</a></h5>
-        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/view">View all experiments</a></h5>
+        <h5 style="float: right;"><a href="/view">View all experiments</a></h5>
     {% if user.is_authenticated %}
 
     <nav class="my-2 my-md-0 mr-md-3">
@@ -34,12 +30,11 @@
   </nav>
         {% endif %}
 </div>
-<hr />
-    <div>
+
     {% block body_block %}
     {% endblock %}
-<hr />
-<footer class="pt-4 my-md-5 pt-md-5 border-top">
+</body>
+<footer id="#footer" class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">
         <small class="d-block mb-3 text-muted">  © 2020 MSD</small>
