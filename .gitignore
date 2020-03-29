@@ -2,9 +2,10 @@
 .idea/
 /participants_wanted/db.sqlite3
 /participants_wanted/experimenter/migrations/*
+/participants_wanted/student/migrations/*
+
 !/participants_wanted/experimenter/migrations/__init__.py
 
 /participants_wanted/media/profile_images/*
-!/participants_wanted/student/migrations/*
 !/participants_wanted/student/migrations/__init__.py
 
