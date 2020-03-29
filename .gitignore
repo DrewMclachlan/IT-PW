@@ -1,3 +1,6 @@
 /venv/
 .idea/
 /participants_wanted/db.sqlite3
+/participants_wanted/experimenter/migrations/
+/participants_wanted/media/profile_images/
+/participants_wanted/student/migrations/
