@@ -14,13 +14,14 @@ import json
 from django.core import serializers
 
 def mainhome(request):
-    return render(request, 'home/index.html')
+    student = request.COOKIES.get('student')
+    context = {'student': student}
+    return render(request, 'home/index.html', context=context)
 
 def viewall(request):
     acceptedexpr = []
     waitingexpr = []
     declined = []
-
     try:
         student = request.COOKIES.get('student')
         context = {'student':student}
@@ -57,6 +58,11 @@ def home(request):
     expr = Experiment.objects.all()
     expr = expr.exclude(students__username=request.user)
     s_i = StudentInfo.objects.get(user=request.user)
+    surv = False
+    try:
+        surv = Demsurv.objects.get(user=request.user)
+    except Exception:
+        print('none')
     notif = s_i.notifications
     dec = s_i.decline
     acceptedexpr = []
@@ -75,7 +81,7 @@ def home(request):
         pastexpr.append(i)
 
 
-    return render(request, 'student/home.html', context={'expr': expr, 'acceptedexpr':acceptedexpr, 'waitingexpr': waitingexpr, 'pastexpr':pastexpr, 'notif':notif, 'dec':dec})
+    return render(request, 'student/home.html', context={'expr': expr, 'acceptedexpr':acceptedexpr, 'waitingexpr': waitingexpr, 'pastexpr':pastexpr, 'notif':notif, 'dec':dec, 'surv':surv})
 
 @login_required
 def user_logout(request):
@@ -115,12 +121,13 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username = username, password = password)
-        try:
-            i = StudentInfo.objects.get(user=user)
-        except ObjectDoesNotExist:
-            return HttpResponse('This is the student login, you have a expr account')
         if user:
             if user.is_active:
+                try:
+                    i = StudentInfo.objects.get(user=user)
+                except ObjectDoesNotExist:
+                    error = "Student Login Only, Experimenter account used"
+                    return render(request, 'expr/login.html', context={'error':error})
                 login(request, user)
                 response = redirect(reverse('student:home'))
                 response.set_cookie('student', 'true')
@@ -128,8 +135,8 @@ def user_login(request):
             else:
                 return HttpResponse('student account disabled')
         else:
-            print(f'Invalid login detials')
-            return HttpResponse('Invalid login details supplied')
+            error = "Invalid Login Details"
+            return render(request, 'expr/login.html', context={'error': error})
     else:
         return render(request, 'student/login.html')
 
@@ -151,6 +158,28 @@ def demsurv(request):
         else:
             dem_form = DemsurvForm()
         return render(request, 'student/demsurvey.html', context={'dem_form': dem_form})
+    else:
+        print('not working')
+
+
+@login_required
+def updatedemsurv(request):
+    if request.user:
+        user = request.user
+        if request.method == 'POST':
+            instance = Demsurv.objects.get(user=user)
+            dem_form = DemsurvForm(request.POST, instance=instance)
+            if dem_form.is_valid():
+                surv = dem_form.save(commit=False)
+                if 'picture' in request.FILES:
+                    surv.picture = request.FILES['picture']
+                surv.save()
+                return redirect(reverse('student:home'))
+            else:
+                print(dem_form.errors)
+        else:
+            dem_form = DemsurvForm()
+        return render(request, 'student/updatedem.html', context={'dem_form': dem_form})
     else:
         print('not working')
 

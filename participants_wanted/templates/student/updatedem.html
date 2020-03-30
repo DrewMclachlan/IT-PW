@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../../media/style.css">
+    <title>Title</title>
+</head>
+
+
+<body class="bg-light" data-gr-c-s-loaded="true">
+	      	<div style="border:10px; width:800px; margin:auto;">
+    <div class="container">
+  <div class="py-5 text-center">
+    <h2>Demographic Survey Update</h2>
+    <p class="lead">Update your information</p>
+  </div>
+
+    <div class="col-md-10 order-md-1" >
+    
+        <form id="user_form" method="post" action="{% url 'student:updatedemsurv' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ dem_form|crispy }}
+
+
+<input class="btn btn-primary btn-lg btn-block" style="border:1px; margin:auto; width:300px" type="submit" name="submit" value="Submit" /> </form>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+
+
+

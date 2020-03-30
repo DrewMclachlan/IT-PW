@@ -23,7 +23,9 @@
     <br>
    	<img class="mb-4" src="../../media/logo.png" alt="" width="72" height="72">
    	<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-
+    {% if error %}
+    <span style="color: red">{{error}}</span>
+    {% endif %}
     <label for="inputEmail" class="sr-only">Username</label>
     <input type="text" name="username" class="form-control" value="" size="50" placeholder="Username" required="" autofocus="" /> <br />
     <label for="inputPassword" class="sr-only">Password</label>

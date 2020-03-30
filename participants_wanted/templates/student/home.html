@@ -6,7 +6,15 @@
 {% load staticfiles %}
 
 {% block body_block %}
-      <div class="col-md-3 order-md-1" style="height: 100%;">
+
+
+
+
+  <div class="container">
+
+
+  <div class="col">
+      <div class="col-md-3 order-md-1">
 <div style="border:1px; width:200px; margin:auto;">
     <h3> {{ user.username }}'s homepage </h3>
     <br>
@@ -22,22 +30,24 @@
   <hr class="mb-4">
   <br>
 <a href = "{% url 'student:profile' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">View Profile</a>
-<a href = "{% url 'student:demsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Update Survey</a>
+
+  {% if surv == False %}
+  <a href = "{% url 'student:demsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Fill out Survey</a>
+  {% else %}
+    <a href = "{% url 'student:updatedemsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Update Survey</a>
+  {% endif %}
+
   <a href = "{% url 'view' %}" class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Bid</a>
 
 </div>
 </div>
-
-
-
-  <div class="container">
-
-
-
+  </div>
 
 
 <!-- Nav tabs -->
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <div class="col-md-8">
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active Experiments</a>
   </li>
@@ -125,7 +135,7 @@
     <p>No past experiments</p>
     {% endif %}
   </div>
-
+</div>
 </div>
   </div>
 

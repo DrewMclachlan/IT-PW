@@ -15,4 +15,5 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('makebid/', views.makebid, name='makebid'),
     path('displaydetails/', views.displaydetails, name='displaydetails'),
+    path('updatedemsurv/', views.updatedemsurv, name='updatedemsurv')
 ]

@@ -72,19 +72,20 @@ def expr_lgoin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
-        try:
-            i = ExprProfile.objects.get(user=user)
-        except ObjectDoesNotExist:
-            return HttpResponse('This is the expr login, you have a student account')
         if user:
             if user.is_active:
+                try:
+                    i = ExprProfile.objects.get(user=user)
+                except ObjectDoesNotExist:
+                    error = "Experimenter Login Only, Student account used"
+                    return render(request, 'expr/login.html', context={'error':error})
                 login(request, user)
                 return redirect(reverse('experimenter:home'))
             else:
                 return HttpResponse('account disabled')
         else:
-            print(f'Invalid login detials')
-            return HttpResponse('Invalid login details supplied')
+            error = "Invalid Login Details"
+            return render(request, 'expr/login.html', context={'error': error})
     else:
         return render(request, 'expr/login.html')
 
@@ -165,4 +166,5 @@ def close(request):
         s_i.pastexpr.add(expr)
         s_i.save()
     return HttpResponse()
+
 

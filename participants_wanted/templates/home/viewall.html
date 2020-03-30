@@ -5,7 +5,47 @@
 
 
 {% block body_block %}
+
 <script>
+    function filt() {
+        var filter = document.getElementById('filter').value;
+        console.log(filter);
+        $.get('/experimenter/getall/', {filter: filter}, function (data) {
+            if(filter === 'low') {
+                data.sort((a, b) => parseFloat(a.fields['price']) - parseFloat(b.fields['price']));
+                $( "#val" ).empty();
+            }
+            if(filter === 'high') {
+                data.sort((a, b) => parseInt(b.fields['price']) - parseInt(a.fields['price']));
+                $( "#val" ).empty();
+            }
+            if(filter == 'soon') {
+                data.sort((a, b) => new Date(a.fields['start_date']) - new Date(b.fields['start_date']));
+                $( "#val" ).empty();
+            }
+            if(filter == 'late') {
+                data.sort((a, b) => new Date(b.fields['start_date']) - new Date(a.fields['start_date']));
+                $( "#val" ).empty();
+            }
+            load(data);
+        });
+    }
+
+
+    var apply = [];
+    var exprlist = [];
+
+
+    function appl(){
+        $( "#val" ).empty();
+        if(apply.length === 0){
+            $('#val').append('<h6>You are not eligible for any experiments</h6>')
+
+        }else{
+            load(apply)
+        }
+    }
+
 	$(document).ready(function() {
 
 	    var username = "{{user.username}}";
@@ -27,6 +67,7 @@
 
 
 	function load(exprs){
+	    apply = [];
         var x = '{{student}}';
 	    var accepted = '{{accepted}}';
 	    var waiting = '{{waiting}}';
@@ -37,7 +78,7 @@
         var counter = 0;
          	for(i in exprs) {
                 if (exprs[i].fields.expr_done === false && exprs[i].fields.expr_full === false ) {
-                    $('#row').append(
+                    $('#val').append(
                         '<div class="col-md-6">' +
                         '<div class="card shadow-sm">' +
                         '<div class="card-header">' +
@@ -45,17 +86,19 @@
                         '</div>' +
                         '<div id = "' + i + '" class="card-body"> ' +
                         '<ul class="list-unstyled mt-3 mb-4"> ' +
-                        '<li>Start Date:' + exprs[i].fields.start_date + '</li>' +
-                        '<li>End Date:'  + exprs[i].fields.end_date + '</li>' +
-                        '<li>Price:' + exprs[i].fields.price + '</li>' +
+                        '<li>Start Date: ' + new Date(exprs[i].fields.start_date).getDate()+ '-' + new Date(exprs[i].fields.start_date).getMonth() + '-' +new Date(exprs[i].fields.start_date).getFullYear() + '</li>' +
+                        '<li>End Date: '  + new Date(exprs[i].fields.start_date).getDate()+ '-' + new Date(exprs[i].fields.start_date).getMonth() + '-' +new Date(exprs[i].fields.start_date).getFullYear() + '</li>' +
+                        '<li>Price: ' + exprs[i].fields.price + '</li>' +
                         '<span id = "span' + counter + '" class="collapse">' +
+                        '<li>Students Needed: ' + exprs[i].fields.num_req + '</li>' +
+                        '<li>Current Students: ' + exprs[i].fields.num_current + '</li>' +
+                        '<br/>'+
                         '<li>' + exprs[i].fields.details + '</li>' +
-                        '<li>Students Needed:' + exprs[i].fields.num_req + '</li>' +
-                        '<li>Current Students:' + exprs[i].fields.num_current + '</li>' +
-                        '<h5>Requirements:</h5>' +
-                        '<li>Age:' + exprs[i].fields.age_req + '</li>' +
-                        '<li>Language:' + exprs[i].fields.lang_req + '</li>' +
-                        '<li>Education:' + exprs[i].fields.ed_req + '</li>' +
+
+                        '<h5>Requirements: </h5>' +
+                        '<li>Age: ' + exprs[i].fields.age_req + '</li>' +
+                        '<li>Language: ' + exprs[i].fields.lang_req + '</li>' +
+                        '<li>Education: ' + exprs[i].fields.ed_req + '</li>' +
                         '</span>' +
                         '</ul> ' +
                         '<button type="button" class="btn-primary" data-toggle="collapse" data-target="#span' + counter + '">See Details</button>' +
@@ -93,6 +136,7 @@
                                 '<button id="' + i + '" type="button" class="btn-success" value="' + exprs[i].fields.name + '" >Bid</button>' +
                                 '</div>'
                             )
+                            apply.push(exprs[i])
                         }
                     }
 
@@ -128,7 +172,7 @@ function det(ver){
     }
 
  function search() {
-        var expr = []
+        var expr = [];
         var filter = document.getElementById('value').value;
         var value = document.getElementById('searchvar').value;
         $.get('/experimenter/getall/', function (data) {
@@ -138,28 +182,32 @@ function det(ver){
                 }
             }
             if(expr.length > 0){
-                $( "#append" ).empty();
+                $( "#val" ).empty();
                 load(expr)
             }else{
-                console.log('add result thing here')
+                $( "#val" ).empty();
+                $("#val").append("<h5>No Experiments found with that criteria</h5>")
             }
 
         });
     }
-
-
 </script>
+
 <div class="container">
-
-{% if user.is_authenticated %}
+        <h4><a href="/view">View all</a></h4>
     {% if student %}
-    <h4><a href = "{% url 'student:home' %}">Home</a></h4>
-
-    {% else %}
-    <h4><a href = "{% url 'experimenter:home' %}">Home</a></h4>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="appl()">Available only</button>
     {% endif %}
-    {% endif %}
-
+    <form class="form-inline mt-2 mt-md-0" style = "float: right; margin-right: 5%">
+        <p>Filter:</p>
+        <select id="filter">
+        <option value="high">Highest Paid</option>
+        <option value="low">Lowest Paid</option>
+        <option value="soon">Soonest</option>
+        <option value="late">Latest</option>
+        </select>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="filt()">Search</button>
+    </form>
     <form onkeydown="return event.key != 'Enter';" class="form-inline mt-2 mt-md-0" style = "float: right; margin-right: 5%">
         <p>Filter by exact requirements:</p>
         <select id="value">
@@ -172,7 +220,7 @@ function det(ver){
         <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="search()">Search</button>
     </form>
     <br/><br/><br/>
-    <div id="row" class="row">
+    <div id="val" class="row">
     </div>
 
 </div>
