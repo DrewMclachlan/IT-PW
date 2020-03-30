@@ -101,38 +101,34 @@
                         '<li>Education: ' + exprs[i].fields.ed_req + '</li>' +
                         '</span>' +
                         '</ul> ' +
+                        '<div class="btn-group btn-group-sm" role="group">' +
                         '<button type="button" class="btn-primary" data-toggle="collapse" data-target="#span' + counter + '">See Details</button>' +
                         '</div>' +
-                                                    '</div>' +
-
-                            '</div>'
+                            '</div>'+
+                        '</div>' +
+                        '</div>'
                     );
                     if (x === 'true') {
                         var one = det(exprs[i].fields.ed_req);
                         var two = det(ed)
                         if(age < exprs[i].fields.age_req || lang !== exprs[i].fields.lang_req || one > two ){
                             $('#' + i).append(
-                                '<div class="btn-group btn-group-sm" role="group">' +
                                 '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Do not meet req</button>' +
                                 '</div>')
                         } else if (accepted.includes(exprs[i].pk)) {
                             $('#' + i).append(
-                                '<div class="btn-group btn-group-sm" role="group">' +
                                 '<button type="button" class="btn-dark" value="' + exprs[i].fields.name + '" disabled>Already accepted</button>' +
                                 '</div>')
                         } else if (declined.includes(exprs[i].pk)) {
                             $('#' + i).append(
-                                '<div class="btn-group btn-group-sm" role="group">' +
                                 '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Declined</button>' +
                                 '</div>')
                         } else if (waiting.includes(exprs[i].pk)) {
                             $('#' + i).append(
-                                '<div class="btn-group btn-group-sm" role="group">' +
                                 '<button type="button" class="btn-warning" value="' + exprs[i].fields.name + '" disabled>Awaiting response</button>' +
                                 '</div>')
                         } else {
                             $('#' + i).append(
-                                '<div class="btn-group btn-group-sm" role="group">' +
                                 '<button id="' + i + '" type="button" class="btn-success" value="' + exprs[i].fields.name + '" >Bid</button>' +
                                 '</div>'
                             )
@@ -193,33 +189,51 @@ function det(ver){
     }
 </script>
 
-<div class="container">
-        <h4><a href="/view">View all</a></h4>
+<div class="container-lg">
+    <div class="row">
     {% if student %}
-    <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="appl()">Available only</button>
     {% endif %}
-    <form class="form-inline mt-2 mt-md-0" style = "float: right; margin-right: 5%">
-        <p>Filter:</p>
-        <select id="filter">
-        <option value="high">Highest Paid</option>
-        <option value="low">Lowest Paid</option>
-        <option value="soon">Soonest</option>
-        <option value="late">Latest</option>
-        </select>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="filt()">Search</button>
-    </form>
-    <form onkeydown="return event.key != 'Enter';" class="form-inline mt-2 mt-md-0" style = "float: right; margin-right: 5%">
-        <p>Filter by exact requirements:</p>
-        <select id="value">
+
+       <div class="col">
+    <form onkeydown="return event.key != 'Enter';" class="form-inline text-left">
+          <select id="value" class="custom-select">
         <option value="name">Name</option>
         <option value="age_req">Age</option>
         <option value="lang_req">Language</option>
         <option value="ed_req">Education</option>
         </select>
-        <input id="searchvar" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="search()">Search</button>
+        <div class="input-group">
+        <input id="searchvar" class="form-control" type="text" placeholder="Search" aria-label="Search">
+                        <span class="input-group-btn">
+
+        <button class="btn btn-outline-success" type="button" onclick="search()">Search</button>
+                </span>
+        </div>
     </form>
-    <br/><br/><br/>
+    </div>
+
+       <div class="col">
+           <div class="float-right">
+    <form class="form-inline">
+        <div class="input-group">
+        <select id="filter" class="custom-select">
+        <option value="high">Highest Paid</option>
+        <option value="low">Lowest Paid</option>
+        <option value="soon">Soonest</option>
+        <option value="late">Latest</option>
+        </select>
+                    <span class="input-group-btn">
+        <button class="btn btn-outline-info" type="button" onclick="filt()">Filter</button></span>
+        </div>
+    </form>
+       </div>
+    </div>
+
+
+
+    <br/>
+    </div>
+    <br/>
     <div id="val" class="row">
     </div>
 

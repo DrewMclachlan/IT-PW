@@ -4,45 +4,45 @@
 
 
 {% block body_block %}
-  <main role="main">
-      <div class="container marketing">
-          <div class="border">
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+<div class="container col-md-8">
+            <div class="border">
 
-    <div class="carousel-inner" >
-            <div class="carousel-item active" >
-        <div class="mainImg" > <img src= "../../media/future.jpg" alt=""></div>
-        <div class="container">
-          <div class="carousel-caption text-right">
-            <h1> Medical Study Database (MSD) </h1>
-            <p>We provide a link between the people who want to earn money participating in medical experiments and the scientists carrying out experiments in their area.</p>
-            <p><a class="btn btn-lg btn-primary" href = "" role="button"> Learn more</a>
+        <div class="mainImg" > <img src= "{{MEDIA_URL}}future.jpg" alt=""></div>
+          <div>
+            <h3  class="outline1"> Medical Study Database</h3>
+              <p class="outline2">We provide a link between the people who want to earn money participating in medical experiments and the scientists carrying out experiments in their area.</p>
           </div>
+
+
+
+    <div class="row justify-content-center">
+
+
+
+      <div class="col-5 text-center">
+        <img src= "{{MEDIA_URL}}expr.png" width="130" height="130" alt="expr photo">
+        <h5>Find Someone, Go Further</h5>
+          <h6>Experimenter</h6>
+
+          <div class="text-left">
+        <p>Advertise your own experiments, with screening and notification features.</p>
+        <a class="btn btn-primary" style="width:48%;"href="{% url 'experimenter:register' %}" role="button">Join us</a>
+        <a class="btn btn-success" style="width:48%;" href="{% url 'experimenter:login' %}" role="button">Login</a>
+                  </div>
+                  </div>
+
+
+
+        <div class="col-5 text-center">
+            <img  src= "{{MEDIA_URL}}student.jpg" width="130" height="130" style="padding-top: 10px" alt="student photo">
+        <h5>Help Science, Make Money</h5>
+            <h6>Student</h6>
+        <div class="text-left">
+            <p>Bid for medical experiments with search and filter features, to make money.</p>
+        <a class="btn btn-primary" style="width:48%;"  href="{% url 'student:register' %}" role="button">Join us</a>
+        <a class="btn btn-success" style="width:48%;" href="{% url 'student:login' %}" role="button" >Login  </a>
         </div>
-      </div>
-    </div>
-
-  </div>
-
-
-
-    <div class="row" >
-
-      <div class="col-lg-4" style=" border:1px; width:100%; margin:auto;" >
-
-        <img src= "../../media/expr.png" width="130" height="130" alt="">
-        <h2>Find Someone, <br> Go Further</h2>
-        <p>You can advertise your own experiments, and you will be notified by email and in the app when students apply.</p>
-        <a class="btn btn-secondary" href="{% url 'experimenter:register' %}" role="button" style="width:100px">Join us</a>
-        <a class="btn btn-secondary" href="{% url 'experimenter:login' %}" role="button" style="width:100px">Login</a>
-      </div>
-        <div class="col-lg-4" style=" border:1px; width:100%; margin:auto;" >
-            <img src= "../../media/student.jpg" width="130" height="130" style="padding-top:10px" alt="">
-        <h2>Help Science, <br> Make Money</h2>
-        <p>You can search by category of medical experiment, location of the experiment, and payment per hour.</p>
-        <a class="btn btn-secondary" href="{% url 'student:register' %}" role="button" style="width:100px">Join us</a>
-        <a class="btn btn-secondary" href="{% url 'student:login' %}" role="button" style="width:100px">Login</a>
-      </div>
+        </div>
 
     </div>
 
@@ -51,8 +51,6 @@
 
           </div>
   </div>
-
-</main>
-
+</div>
 
 {% endblock %}
