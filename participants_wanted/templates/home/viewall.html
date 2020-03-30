@@ -38,6 +38,7 @@
 
     function appl(){
         $( "#val" ).empty();
+        console.log(apply)
         if(apply.length === 0){
             $('#val').append('<h6>You are not eligible for any experiments</h6>')
 
@@ -47,12 +48,13 @@
     }
 
 	$(document).ready(function() {
-
-	    var username = "{{user.username}}";
+        var username = "{{user.username}}";
         var u_id = "{{user.id}}";
-         $.get('/experimenter/getall/', function(data){
-             load(data)
-         });
+        $.get('/experimenter/getall/', function (data) {
+            console.log(data)
+            load(data)
+        });
+
 
         $(document).on('click', '.btn-success', function() {
             var name = $(this).attr('value');
@@ -94,7 +96,7 @@
                         '<li>Current Students: ' + exprs[i].fields.num_current + '</li>' +
                         '<br/>'+
                         '<li>' + exprs[i].fields.details + '</li>' +
-
+                            '<br/>'+
                         '<h5>Requirements: </h5>' +
                         '<li>Age: ' + exprs[i].fields.age_req + '</li>' +
                         '<li>Language: ' + exprs[i].fields.lang_req + '</li>' +
@@ -112,23 +114,23 @@
                         var one = det(exprs[i].fields.ed_req);
                         var two = det(ed)
                         if(age < exprs[i].fields.age_req || lang !== exprs[i].fields.lang_req || one > two ){
-                            $('#' + i).append(
+                            $('#' + i).find('.btn-group').append(
                                 '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Do not meet req</button>' +
                                 '</div>')
                         } else if (accepted.includes(exprs[i].pk)) {
-                            $('#' + i).append(
+                            $('#' + i).find('.btn-group').append(
                                 '<button type="button" class="btn-dark" value="' + exprs[i].fields.name + '" disabled>Already accepted</button>' +
                                 '</div>')
                         } else if (declined.includes(exprs[i].pk)) {
-                            $('#' + i).append(
+                            $('#' + i).append.find('.btn-group')(
                                 '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Declined</button>' +
                                 '</div>')
                         } else if (waiting.includes(exprs[i].pk)) {
-                            $('#' + i).append(
+                            $('#' + i).find('.btn-group').append(
                                 '<button type="button" class="btn-warning" value="' + exprs[i].fields.name + '" disabled>Awaiting response</button>' +
                                 '</div>')
                         } else {
-                            $('#' + i).append(
+                            $('#' + i).find('.btn-group').append(
                                 '<button id="' + i + '" type="button" class="btn-success" value="' + exprs[i].fields.name + '" >Bid</button>' +
                                 '</div>'
                             )
@@ -189,10 +191,9 @@ function det(ver){
     }
 </script>
 
-<div class="container-lg">
+<div class="container">
     <div class="row">
-    {% if student %}
-    {% endif %}
+
 
        <div class="col">
     <form onkeydown="return event.key != 'Enter';" class="form-inline text-left">
@@ -206,15 +207,20 @@ function det(ver){
         <input id="searchvar" class="form-control" type="text" placeholder="Search" aria-label="Search">
                         <span class="input-group-btn">
 
-        <button class="btn btn-outline-success" type="button" onclick="search()">Search</button>
+        <button class="btn btn-outline-primary" type="button" onclick="search()">Search</button>
                 </span>
         </div>
     </form>
+
+
     </div>
 
        <div class="col">
            <div class="float-right">
     <form class="form-inline">
+            {% if student %}
+           <button class="btn btn-outline-success" type="button" onclick="appl()">Available only</button>
+           {% endif %}
         <div class="input-group">
         <select id="filter" class="custom-select">
         <option value="high">Highest Paid</option>

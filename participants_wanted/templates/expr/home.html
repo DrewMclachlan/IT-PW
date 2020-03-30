@@ -9,53 +9,51 @@
 
 </head>
 {% block body_block %}
-<body>
-
 <div class="container">
+    <div class="row">
 <br/>
-    <div class="col">
-    <div class="col-md-3 order-md-1" style="min-height:100%; height:100%;">
-<div style="border:1px; width:200px; margin:auto;">
-    <br/>
-<h4>{{ user.username }}'s home page</h4>
-    <br/>
-<a href = "{% url 'experimenter:createexpr' %}" class="btn btn-lg btn-outline-success btn-block" style="width: 150px; height: 45px">Create</a>
-</div>
-      </div>
+
+
+    <div class="col-md-2">
+        <br/>
+    <a href = "{% url 'experimenter:createexpr' %}" class="btn btn-lg btn-outline-success btn-block">Create</a>
+        <br/>
     </div>
-    <div class="col-md-8">
-<h5>Your current experiments:</h5>
 
-    <div id="accordion">
-{% if expr %}
-    {% for e in expr %}
+
+
+    <div class="col-md-10">
+    <h5>Your current experiments:</h5>
+
+    <div class="accordion" id="accordionExample">
+        {% if expr %}
+        {% for e in expr %}
         {% if e.expr_done == False %}
-        <div class="card">
-            <div class="card-header" id="headingOne">
-            <button class="btn btn-link float-left" data-toggle="collapse" data-target="#{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
-                {{ e.name }}</button>
-              {% if e.expr_full %}
+    <div class="card">
+    <div class="card-header" id="{{e}}">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#id{{forloop.counter}}" aria-expanded="true" aria-controls="collapseOne">
+          {{ e.name }}
+        </button>
+          {% if e.expr_full %}
                   <span class="badge" >Experiment Full</span>
-
                 {% endif %}
                 <button id="close" class="btn btn-outline-secondary float-right" value="{{e.name}}">Close Experiment</button>
                 {% if dict %}
                 {% for key, value in dict.items %}
-                    {% if key == e.name and value|length > 0%}
-                        <span class="badge" style="background-color:#ea0000;" >{{ value|length }}</span>
+                    {% if key == e.name and value|length > 0 %}
+                        <span id="s{{e.name}}" class="badge" style="background-color:#ea0000;" >{{ value|length }}</span>
                     {% endif %}
                 {% endfor %}
                 {% endif %}
-            </div>
+    </div>
 
-        <div id="{{ forloop.counter }}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+         <div id="id{{forloop.counter}}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
             <p>Amount of students needed: {{ e.num_req }}</p>
             <p>Amount of students currently: {{ e.num_current }}</p>
-
-        <p>Students who have bid:</p>
-        {% if dict %}
-        {% for key, value in dict.items %}
+            <p>Students who have bid:</p>
+            {% if dict %}
+            {% for key, value in dict.items %}
             {% if key == e.name %}
             {% for name in value %}
                 <div class="col">
@@ -75,13 +73,22 @@
         </div>
         {% endif %}
         {% endfor %}
+
+
+
+
+
+
     </div>
+        <br/>
+        <h5>Your previous experiments:</h5>
+        <ul>
     {% for e in expr %}
         {% if e.expr_done == True %}
-            <h5>Your previous experiments:</h5>
-            {{ e.name }}
+            <li>{{ e.name }}</li>
             {% endif %}
     {% endfor %}
+            </ul>
 {% else %}
     <h5>No Experiments created</h5>
 
@@ -90,7 +97,7 @@
 {% endif %}
     <br />
 
-
+    </div>
 </div>
 </div>
 
@@ -122,7 +129,7 @@
              function(data){
                 var obj = JSON.parse(data)
                 $('.modal-body').append(
-                    '<h5>Anonymous User</h5>' +
+                    '<h6>Anonymous User</h6>' +
                     '<p>Sex:  ' + obj[0].fields.sex + '</p>' +
                     '<p>Age:  ' + obj[0].fields.age + '</p>' +
                 '<p>Language:  ' + obj[0].fields.language + '</p>' +
@@ -163,9 +170,6 @@
              )
      })
  });
-
-
-
 </script>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -185,30 +189,4 @@
   </div>
 </div>
 {% endblock %}
-</html>
 
-
-<div class="col-sm-4 order-md-1">
-    <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Boredom Test</h4>
-        </div>
-        <div id="0" class="card-body">
-            <ul class="list-unstyled mt-3 mb-4">
-                <li>2020-03-29</li>
-                <li>10</li>
-                <li>2020-03-06</li>
-                <span id="span0" class="collapse">
-                    <li>This experiment will test the human ability to endure extreme boredom.Participants will have to watch Kevin Costner's 1997 film The Postman 16times in 2 days.</li>
-                    <li>8</li>
-                    <li>0</li>
-                    <h5>Requirements:</h5>
-                    <li>18</li>
-                    <li>English</li>
-                    <li>College</li>
-                </span>
-            </ul>
-            <button type="button" class="btn-primary" data-toggle="collapse" data-target="#span0">See Details</button>
-        </div>
-    </div>
-</div>

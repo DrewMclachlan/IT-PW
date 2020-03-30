@@ -1,63 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-      <link rel="stylesheet" type="text/css" href="../../media/style.css">
-  {% extends 'base.html' %}
-{% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="../../media/style.css">
+    {% extends 'base.html' %}
+    {% load staticfiles %}
 
-{% block body_block %}
-
-
-
-
+  {% block body_block %}
   <div class="container">
+    <br/>
+    <div class="row">
+    <div class="col-4">
+    <div>
+    <div style="border:1px;">
+    <h4> {{ user.username }}</h4>
 
-
-  <div class="col">
-      <div class="col-md-3 order-md-1">
-<div style="border:1px; width:200px; margin:auto;">
-    <h3> {{ user.username }}'s homepage </h3>
-    <br>
-    <hr class="mb-4">
+    <hr>
       <h5>Notifications:</h5>
-  {% if notif %}
-  <span class="badge" style="background-color:#ea0000;" >{{ notif }} Accepted</span>
-  {% endif %}
-  {% if dec %}
+    {% if notif %}
+    <span class="badge" style="background-color:#ea0000;" >{{ notif }} Accepted</span>
+    {% endif %}
+    {% if dec %}
       <span class="badge" style="background-color:#ea0000;" >{{ notif }} Declined</span>
-  {% endif %}
-  <br>
-  <hr class="mb-4">
-  <br>
-<a href = "{% url 'student:profile' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">View Profile</a>
-
-  {% if surv == False %}
-  <a href = "{% url 'student:demsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Fill out Survey</a>
-  {% else %}
-    <a href = "{% url 'student:updatedemsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Update Survey</a>
-  {% endif %}
-
-  <a href = "{% url 'view' %}" class="btn btn-lg btn-outline-primary btn-block" style="width: 150px; height: 45px">Bid</a>
-
-</div>
-</div>
-  </div>
+    {% endif %}
+    <br>
+    <hr>
+    <br>
+    <a href = "{% url 'student:profile' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 100%;">View Profile</a>
+    {% if surv == False %}
+      <a href = "{% url 'student:demsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 100%;">Fill out Survey</a>
+    {% else %}
+      <a href = "{% url 'student:updatedemsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 100%;">Update Survey</a>
+    {% endif %}
+    <a href = "{% url 'view' %}" class="btn btn-lg btn-outline-primary btn-block" style="width: 100%;">Bid</a>
+    </div>
+    </div>
+    </div>
 
 
-<!-- Nav tabs -->
-    <div class="col-md-8">
-
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active Experiments</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="waiting-tab" data-toggle="tab" href="#waiting" role="tab" aria-controls="waiting" aria-selected="false">Waiting for reply</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="past-tab" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">Past Experiments</a>
-  </li>
-</ul>
+    <div class="col-8 float-right">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active Experiments</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="waiting-tab" data-toggle="tab" href="#waiting" role="tab" aria-controls="waiting" aria-selected="false">Waiting for reply</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="past-tab" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="false">Past Experiments</a>
+      </li>
+      </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
@@ -66,16 +57,16 @@
   {% if acceptedexpr %}
   {% for e in acceptedexpr %}
 
-      <div class="col-sm-4 order-md-1">
+      <div class="col">
         <div class="card mb-4 shadow-sm">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{e.name}}</h4>
           </div>
           <div class="card-body">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>{{e.start_date}}</li>
-              <li>{{e.price}}</li>
-              <li>{{e.end_date}}</li>
+              <li>Start: {{e.start_date}}</li>
+              <li>End: {{e.end_date}}</li>
+              <li>Price: {{e.price}}</li>
             </ul>
           </div>
         </div>
@@ -91,16 +82,16 @@
   {% if waitingexpr %}
   {% for e2 in waitingexpr %}
 
-      <div class="col-sm-4 order-md-1">
+      <div class="col">
         <div class="card mb-4 shadow-sm">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{e2.name}}</h4>
           </div>
           <div class="card-body">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>{{e2.start_date}}</li>
-              <li>{{e2.price}}</li>
-              <li>{{e2.end_date}}</li>
+              <li>Start: {{e2.start_date}}</li>
+              <li>End: {{e2.end_date}}</li>
+              <li>Price: {{e2.price}}</li>
             </ul>
           </div>
         </div>
@@ -116,16 +107,16 @@
   {% if pastexpr %}
   {% for e3 in pastexpr %}
 
-      <div class="col-sm-4 order-md-1">
+      <div class="col">
         <div class="card mb-4 shadow-sm">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{e3.name}}</h4>
           </div>
           <div class="card-body">
             <ul class="list-unstyled mt-3 mb-4">
-              <li>{{e3.start_date}}</li>
-              <li>{{e3.price}}</li>
-              <li>{{e3.end_date}}</li>
+              <li>Start: {{e3.start_date}}</li>
+              <li>End: {{e3.end_date}}</li>
+              <li>Price: {{e3.price}}</li>
             </ul>
           </div>
         </div>
@@ -137,6 +128,7 @@
   </div>
 </div>
 </div>
+  </div>
   </div>
 
 
