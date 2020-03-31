@@ -13,6 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 from django.core import serializers
 
+
 def mainhome(request):
     student = request.COOKIES.get('student')
     context = {'student': student}
@@ -38,9 +39,11 @@ def viewall(request):
         for i in s_i.decexpr.all():
             declined.append(i.id)
 
-        context['declined'] = declined
-        context['accepted'] = acceptedexpr
-        context['waiting'] = waitingexpr
+
+        print(waitingexpr)
+        context['declined'] = json.dumps(list(declined))
+        context['accepted'] = json.dumps(list(acceptedexpr))
+        context['waiting'] = json.dumps(list(waitingexpr))
         context['demsurv'] = ds
 
         return render(request, 'home/viewall.html', context=context)
