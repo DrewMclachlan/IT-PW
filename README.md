@@ -1,4 +1,17 @@
 # IT-PW
+
+Population script u&p for expr login
+
+U: expr
+P: test
+
+
+Online:
+
+http://itpw2020.pythonanywhere.com/
+
+Local:
+
 Pull the repo
 Once installed dependencies must be installed on local machine. 
 Using 'pip install' on the following in the root dir of the folder 'participants_wanted'
