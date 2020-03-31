@@ -30,7 +30,7 @@
         </button>
           {% if e.expr_full %}
                   <span class="badge" >Experiment Full</span>
-                {% endif %}
+            {% endif %}
                 <button id="close" class="btn btn-outline-secondary float-right" value="{{e.name}}">Close Experiment</button>
                 {% if dict %}
                 {% for key, value in dict.items %}
@@ -98,6 +98,8 @@
 </body>
 
     <script>
+
+
     $(document).ready(function() {
      $(".btn-outline-secondary").click(function () {
          console.log('test')
@@ -136,6 +138,11 @@
      });
  })
 
+  $(document).ready(function() {
+
+  });
+
+
  $(document).ready(function() {
      $(".btn-outline-success").click(function () {
          var name = $(this).attr('value');
@@ -144,10 +151,21 @@
          $.get('/experimenter/accept/',
              {'expr':expr,'student': name},
              function(){
+             document.location.reload(true)
 
              }
              )
      })
+ });
+
+ $(document).ready(function () {
+     $(".btn-link").click(function () {
+         localStorage.setItem('collapseItem', $(this).attr('data-target'));
+     });
+     var collapseItem = localStorage.getItem('collapseItem');
+    if (collapseItem) {
+       $(collapseItem).collapse('show')
+    }
  });
 
  $(document).ready(function() {
@@ -159,6 +177,7 @@
          $.get('/experimenter/decline/',
              {'expr':expr,'student': name},
              function(){
+                 document.location.reload(true)
 
              }
              )

@@ -10,14 +10,14 @@
 </head>
 
 {% if registered %}
-    <p>Thank you for registering with us.</p>
+    <p>Thank you for creating.</p>
 <a href = "{% url 'experimenter:index' %}">Home</a>
 {% else %}
 {% block body_block %}
 <div style="border:1px; width:600px; margin:auto;">
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal">Experimenter Sign Up</h4>
+      <h4 class="my-0 font-weight-normal">Create Experiment</h4>
     </div>
     <div class="card-body">
       <div class="col-md-8 order-md-1">

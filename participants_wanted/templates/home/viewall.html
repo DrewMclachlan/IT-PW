@@ -68,15 +68,9 @@
      });
 
 
-	function load(exprs){
-	    apply = [];
+	function load(exprs) {
+        apply = [];
         var x = '{{student}}';
-	    var accepted = JSON.parse('{{accepted| safe}}');
-	    var waiting = JSON.parse('{{waiting| safe}}');
-	    var declined = JSON.parse('{{declined| safe}}');
-	    var age = '{{demsurv.age}}';
-        var lang = '{{demsurv.language}}';
-        var ed = '{{demsurv.education}}';
         var counter = 0;
          	for(i in exprs) {
                 if (exprs[i].fields.expr_done === false && exprs[i].fields.expr_full === false ) {
@@ -111,6 +105,12 @@
                         '</div>'
                     );
                     if (x === 'true') {
+                        var accepted = JSON.parse('{{accepted| safe}}');
+                    var waiting = JSON.parse('{{waiting| safe}}');
+                    var declined = JSON.parse('{{declined| safe}}');
+                    var age = '{{demsurv.age}}';
+                    var lang = '{{demsurv.language}}';
+                    var ed = '{{demsurv.education}}';
                         var one = det(exprs[i].fields.ed_req);
                         var two = det(ed);
                         if(age < exprs[i].fields.age_req || lang !== exprs[i].fields.lang_req && exprs[i].fields.lang_req !== 'None' || one > two ){

@@ -84,7 +84,9 @@ def expr_lgoin(request):
                     error = "Experimenter Login Only, Student account used"
                     return render(request, 'expr/login.html', context={'error':error})
                 login(request, user)
-                return redirect(reverse('experimenter:home'))
+                response = redirect(reverse('experimenter:home'))
+                response.set_cookie('student', 'false')
+                return response
             else:
                 return HttpResponse('account disabled')
         else:
@@ -137,6 +139,21 @@ def accept(request):
         s_i.bidexpr.remove(expr)
         s_i.save()
         expr.save()
+        try:
+            expr = Experiment.objects.get(name=expr_name)
+            if expr.expr_full == True:
+                print(expr.expr_full)
+                for s2 in expr.students.all():
+                    print(s2)
+                    expr.students.remove(s2)
+                    s_i = StudentInfo.objects.get(user=s2)
+                    s_i.bidexpr.remove(expr)
+                    s_i.decexpr.add(expr)
+                    s_i.save()
+            expr.save()
+        except:
+            ObjectDoesNotExist
+
 
     except ObjectDoesNotExist:
         return HttpResponse(-1)
@@ -172,6 +189,9 @@ def close(request):
     except Exception as e:
         return render(request, 'home/index.html')
     name = request.GET['expr']
+
+
+
     li = []
     expr = Experiment.objects.get(name=name)
     expr.expr_done = True
@@ -180,6 +200,12 @@ def close(request):
         s_i = StudentInfo.objects.get(user=s)
         s_i.currentexpr.remove(expr)
         s_i.pastexpr.add(expr)
+        s_i.save()
+
+    for s2 in expr.students.all():
+        s_i = StudentInfo.objects.get(user=s2)
+        s_i.bidexpr.remove(expr)
+        s_i.decexpr.add(expr)
         s_i.save()
     return HttpResponse()
 
