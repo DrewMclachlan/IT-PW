@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import ExprProfile, Experiment
-from student.models import StudentInfo
+from student.models import StudentInfo, Demsurv
 
 from .forms import ExprForm, ExprProfileForm, CreateExpr
 
@@ -17,7 +17,7 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('experimenter:home'))
 
-
+@login_required
 def getall(request):
     expr = Experiment.objects.all()
     json = serializers.serialize('json', expr)
@@ -29,6 +29,11 @@ def index(request):
 
 @login_required()
 def home(request):
+    try:
+        i = Demsurv.objects.get(user=request.user)
+        return render(request, 'student/home.html')
+    except ObjectDoesNotExist:
+        print()
     expr = Experiment.objects.filter(user=request.user)
     dict = {}
     for e in expr:
@@ -113,6 +118,10 @@ def createExperemnt(request):
 
 @login_required
 def accept(request):
+    try:
+        request.GET['expr']
+    except Exception as e:
+        return render(request, 'home/index.html')
     expr_name = request.GET['expr']
     student = request.GET['student']
     try:
@@ -137,6 +146,10 @@ def accept(request):
 
 @login_required
 def decline(request):
+    try:
+        request.GET['expr']
+    except Exception as e:
+        return render(request, 'home/index.html')
     expr_name = request.GET['expr']
     student = request.GET['student']
     try:
@@ -155,6 +168,10 @@ def decline(request):
 
 @login_required
 def close(request):
+    try:
+        request.GET['expr']
+    except Exception as e:
+        return render(request, 'home/index.html')
     name = request.GET['expr']
     li = []
     expr = Experiment.objects.get(name=name)

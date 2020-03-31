@@ -25,6 +25,9 @@
     <br>
     <hr>
     <br>
+      {% if error %}
+    <span style="color: red">{{error}}</span>
+    {% endif %}
     <a href = "{% url 'student:profile' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 100%;">View Profile</a>
     {% if surv == False %}
       <a href = "{% url 'student:demsurv' %}"class="btn btn-lg btn-outline-primary btn-block" style="width: 100%;">Fill out Survey</a>

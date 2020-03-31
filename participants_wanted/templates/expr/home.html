@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
     {% extends 'base.html' %}
 {% load staticfiles %}
     <meta charset="UTF-8">
           <link rel="stylesheet" type="text/css" href="../../media/style.css">
     <title>Title</title>
 
-</head>
 {% block body_block %}
 <div class="container">
     <div class="row">
@@ -19,9 +16,6 @@
     <a href = "{% url 'experimenter:createexpr' %}" class="btn btn-lg btn-outline-success btn-block">Create</a>
         <br/>
     </div>
-
-
-
     <div class="col-md-10">
     <h5>Your current experiments:</h5>
 

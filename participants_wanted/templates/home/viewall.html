@@ -122,7 +122,7 @@
                                 '<button type="button" class="btn-dark" value="' + exprs[i].fields.name + '" disabled>Already accepted</button>' +
                                 '</div>')
                         } else if (declined.includes(exprs[i].pk)) {
-                            $('#' + i).append.find('.btn-group')(
+                            $('#' + i).find('.btn-group').append(
                                 '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Declined</button>' +
                                 '</div>')
                         } else if (waiting.includes(exprs[i].pk)) {

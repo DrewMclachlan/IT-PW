@@ -46,7 +46,8 @@ def viewall(request):
         return render(request, 'home/viewall.html', context=context)
     except Exception as e:
         if type(e).__name__ == 'DoesNotExist':
-            return HttpResponse('you must do the dem surv before bidding')
+            error = "You must complete the survey first"
+            return render(request, 'student/home.html', context={'error': error, 'surv':False})
         else:
             return render(request, 'home/viewall.html')
 
@@ -55,6 +56,7 @@ def viewall(request):
 
 @login_required
 def home(request):
+    student = request.COOKIES.get('student')
     expr = Experiment.objects.all()
     expr = expr.exclude(students__username=request.user)
     s_i = StudentInfo.objects.get(user=request.user)
@@ -81,7 +83,7 @@ def home(request):
         pastexpr.append(i)
 
 
-    return render(request, 'student/home.html', context={'expr': expr, 'acceptedexpr':acceptedexpr, 'waitingexpr': waitingexpr, 'pastexpr':pastexpr, 'notif':notif, 'dec':dec, 'surv':surv})
+    return render(request, 'student/home.html', context={'expr': expr, 'acceptedexpr':acceptedexpr, 'waitingexpr': waitingexpr, 'pastexpr':pastexpr, 'notif':notif, 'dec':dec, 'surv':surv, 'student':student})
 
 @login_required
 def user_logout(request):
@@ -127,7 +129,7 @@ def user_login(request):
                     i = StudentInfo.objects.get(user=user)
                 except ObjectDoesNotExist:
                     error = "Student Login Only, Experimenter account used"
-                    return render(request, 'expr/login.html', context={'error':error})
+                    return render(request, 'student/login.html', context={'error':error})
                 login(request, user)
                 response = redirect(reverse('student:home'))
                 response.set_cookie('student', 'true')
@@ -191,13 +193,17 @@ def profile(request):
         context_dict['info'] = i
         return render(request, 'student/profile.html', context=context_dict)
     except ObjectDoesNotExist:
-        return HttpResponse("you must do the dem survey first!")
-
+        error = "You must complete the survey first"
+        return render(request, 'student/home.html', context={'error': error, 'surv':False})
 
 
 # update to class views
 @login_required
 def makebid(request):
+    try:
+        request.GET['expr_name']
+    except Exception as e:
+        return render(request, 'home/index.html')
     expr_name = request.GET['expr_name']
     username = request.GET['username']
     u_id = request.GET['u_id']
@@ -215,6 +221,10 @@ def makebid(request):
 
 @login_required
 def displaydetails(request):
+    try:
+        request.GET['name']
+    except Exception as e:
+        return render(request, 'home/index.html')
     name = request.GET['name']
     try:
         demsurv = Demsurv.objects.get(user__username=name)
