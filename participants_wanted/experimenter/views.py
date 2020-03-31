@@ -8,6 +8,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import ExprProfile, Experiment
 from student.models import StudentInfo, Demsurv
+import smtplib
+from email.message import EmailMessage
+from django.core.mail import send_mail
+
 
 from .forms import ExprForm, ExprProfileForm, CreateExpr
 
@@ -139,6 +143,8 @@ def accept(request):
         s_i.bidexpr.remove(expr)
         s_i.save()
         expr.save()
+
+
         try:
             expr = Experiment.objects.get(name=expr_name)
             if expr.expr_full == True:
