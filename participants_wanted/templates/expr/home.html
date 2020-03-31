@@ -1,11 +1,11 @@
 
     {% extends 'base.html' %}
 {% load staticfiles %}
-    <meta charset="UTF-8">
-          <link rel="stylesheet" type="text/css" href="../../media/style.css">
-    <title>Title</title>
+
 
 {% block body_block %}
+    <script src="{{MEDIA_URL}}exprhome.js"></script>
+
 <div class="container">
     <div class="row">
 <br/>
@@ -97,93 +97,7 @@
 
 </body>
 
-    <script>
 
-
-    $(document).ready(function() {
-     $(".btn-outline-secondary").click(function () {
-         console.log('test')
-         var name = $(this).attr('value');
-         $.get('/experimenter/close/',
-             {'expr':name},
-             function(){
-                location.reload()
-             }
-             )
-     })
- })
-    </script>
-
-<script>
- $(document).ready(function() {
-     $(".btn-outline-info").click(function(){
-         $('.modal-body').html('')
-         var name = $(this).attr('value');
-         console.log(name);
-         $.get('/student/displaydetails/',
-             {'name': name},
-             function(data){
-                var obj = JSON.parse(data)
-                $('.modal-body').append(
-                    '<h6>Anonymous User</h6>' +
-                    '<p>Sex:  ' + obj[0].fields.sex + '</p>' +
-                    '<p>Age:  ' + obj[0].fields.age + '</p>' +
-                '<p>Language:  ' + obj[0].fields.language + '</p>' +
-                    '<p>Country:  ' + obj[0].fields.country + '</p>' +
-                    '<p>Education:  ' + obj[0].fields.education + '</p>'
-                )
-
-             }
-         )
-     });
- })
-
-  $(document).ready(function() {
-
-  });
-
-
- $(document).ready(function() {
-     $(".btn-outline-success").click(function () {
-         var name = $(this).attr('value');
-         var expr = $(this).closest('div').prop('id');
-         $(this).parents(":eq(1)").remove();
-         $.get('/experimenter/accept/',
-             {'expr':expr,'student': name},
-             function(){
-             document.location.reload(true)
-
-             }
-             )
-     })
- });
-
- $(document).ready(function () {
-     $(".btn-link").click(function () {
-         localStorage.setItem('collapseItem', $(this).attr('data-target'));
-     });
-     var collapseItem = localStorage.getItem('collapseItem');
-    if (collapseItem) {
-       $(collapseItem).collapse('show')
-    }
- });
-
- $(document).ready(function() {
-     $(".btn-outline-danger").click(function () {
-         var name = $(this).attr('value')
-         var expr = $(this).closest('div').prop('id');
-         $(this).parents(":eq(1)").remove();
-
-         $.get('/experimenter/decline/',
-             {'expr':expr,'student': name},
-             function(){
-                 document.location.reload(true)
-
-             }
-             )
-     })
- });
-</script>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

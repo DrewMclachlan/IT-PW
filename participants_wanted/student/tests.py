@@ -49,6 +49,6 @@ class TestCreate(TestCase):
         e.students.get(id=user.id)
         s_i.bidexpr.get(name=e.name)
 
-        
+
 
 

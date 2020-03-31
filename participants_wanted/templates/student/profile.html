@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../media/style.css">
-    <title>
-         MSD -
-        {% block title_block %}
-          The Medical Study Database
-        {% endblock %}
-    </title>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
 
-</head>
-<body>
+
+{% block body_block %}
 <div style="border:1px; width:600px; margin:auto;">
   <div class="card mb-4 shadow-sm">
     <div class="card-header" style="text-align: center;">
@@ -58,7 +50,5 @@
   </div>
 </div>
 
-</body>
-</html>
-
+{% endblock %}
 

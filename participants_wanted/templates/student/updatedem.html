@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="../../media/style.css">
-    <title>Title</title>
-</head>
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block body_block %}
 
 
 <body class="bg-light" data-gr-c-s-loaded="true">
@@ -27,8 +27,7 @@
 </div>
 </div>
 </div>
-</body>
-</html>
+{% endblock %}
 
 
 

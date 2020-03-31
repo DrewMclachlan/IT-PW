@@ -1,13 +1,6 @@
- <!DOCTYPE html>
-{% extends 'base.html' %}
-{% load staticfiles %}
-<html lang="en">
 
-
-{% block body_block %}
-
-<script>
-    function filt() {
+//Filter experiments
+function filt() {
         var filter = document.getElementById('filter').value;
         console.log(filter);
         $.get('/experimenter/getall/', {filter: filter}, function (data) {
@@ -33,9 +26,8 @@
 
 
     var apply = [];
-    var exprlist = [];
 
-
+    //View exper that can be bid on
     function appl(){
         $( "#val" ).empty();
         console.log(apply)
@@ -48,14 +40,13 @@
     }
 
 	$(document).ready(function() {
-        var username = "{{user.username}}";
-        var u_id = "{{user.id}}";
+	    //Load expr's from back end when browser loads
         $.get('/experimenter/getall/', function (data) {
             console.log(data);
             load(data)
         });
 
-
+        //Bid on expr
         $(document).on('click', '.btn-success', function() {
             var name = $(this).attr('value');
             $(this).remove();
@@ -69,8 +60,9 @@
 
 
 	function load(exprs) {
+	    //Dynamiclly load all expr with all information into collapsable card and append to body
         apply = [];
-        var x = '{{student}}';
+        console.log(x)
         var counter = 0;
          	for(i in exprs) {
                 if (exprs[i].fields.expr_done === false && exprs[i].fields.expr_full === false ) {
@@ -105,14 +97,10 @@
                         '</div>'
                     );
                     if (x === 'true') {
-                        var accepted = JSON.parse('{{accepted| safe}}');
-                    var waiting = JSON.parse('{{waiting| safe}}');
-                    var declined = JSON.parse('{{declined| safe}}');
-                    var age = '{{demsurv.age}}';
-                    var lang = '{{demsurv.language}}';
-                    var ed = '{{demsurv.education}}';
+                        //If student viewing bid append dynamic buttons with info such as 'bid' 'declined' 'waiting
                         var one = det(exprs[i].fields.ed_req);
                         var two = det(ed);
+                        console.log(age);
                         if(age < exprs[i].fields.age_req || lang !== exprs[i].fields.lang_req && exprs[i].fields.lang_req !== 'None' || one > two ){
                             $('#' + i).find('.btn-group').append(
                                 '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Do not meet req</button>' +
@@ -146,6 +134,8 @@
 		 }
 
 function det(ver){
+	    //Determine what level of edcuation is 
+    // greater than others i.e ensure if expr education set as none a student with school can apply
 	    var x = 0;
     switch(ver){
         case 'Postgraduate':
@@ -189,59 +179,3 @@ function det(ver){
 
         });
     }
-</script>
-
-<div class="container">
-    <div class="row">
-
-
-       <div class="col">
-    <form onkeydown="return event.key != 'Enter';" class="form-inline text-left">
-          <select id="value" class="custom-select">
-        <option value="name">Name</option>
-        <option value="age_req">Age</option>
-        <option value="lang_req">Language</option>
-        <option value="ed_req">Education</option>
-        </select>
-        <div class="input-group">
-        <input id="searchvar" class="form-control" type="text" placeholder="Search" aria-label="Search">
-                        <span class="input-group-btn">
-
-        <button class="btn btn-outline-primary" type="button" onclick="search()">Search</button>
-                </span>
-        </div>
-    </form>
-
-
-    </div>
-
-       <div class="col">
-           <div class="float-right">
-    <form class="form-inline">
-            {% if student %}
-           <button class="btn btn-outline-success" type="button" onclick="appl()">Available only</button>
-           {% endif %}
-        <div class="input-group">
-        <select id="filter" class="custom-select">
-        <option value="high">Highest Paid</option>
-        <option value="low">Lowest Paid</option>
-        <option value="soon">Soonest</option>
-        <option value="late">Latest</option>
-        </select>
-                    <span class="input-group-btn">
-        <button class="btn btn-outline-info" type="button" onclick="filt()">Filter</button></span>
-        </div>
-    </form>
-       </div>
-    </div>
-
-
-
-    <br/>
-    </div>
-    <br/>
-    <div id="val" class="row">
-    </div>
-</div>
-
-{% endblock %}
