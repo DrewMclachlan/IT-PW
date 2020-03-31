@@ -138,7 +138,7 @@ def user_login(request):
                 return HttpResponse('student account disabled')
         else:
             error = "Invalid Login Details"
-            return render(request, 'expr/login.html', context={'error': error})
+            return render(request, 'student/login.html', context={'error': error})
     else:
         return render(request, 'student/login.html')
 

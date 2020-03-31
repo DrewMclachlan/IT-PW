@@ -112,8 +112,10 @@
                     );
                     if (x === 'true') {
                         var one = det(exprs[i].fields.ed_req);
-                        var two = det(ed)
-                        if(age < exprs[i].fields.age_req || lang !== exprs[i].fields.lang_req || one > two ){
+                        console.log(one);
+                        var two = det(ed);
+                        console.log(two);
+                        if(age < exprs[i].fields.age_req || lang !== exprs[i].fields.lang_req && exprs[i].fields.lang_req !== 'None' || one > two ){
                             $('#' + i).find('.btn-group').append(
                                 '<button type="button" class="btn-danger" value="' + exprs[i].fields.name + '" disabled>Do not meet req</button>' +
                                 '</div>')
@@ -130,6 +132,7 @@
                                 '<button type="button" class="btn-warning" value="' + exprs[i].fields.name + '" disabled>Awaiting response</button>' +
                                 '</div>')
                         } else {
+
                             $('#' + i).find('.btn-group').append(
                                 '<button id="' + i + '" type="button" class="btn-success" value="' + exprs[i].fields.name + '" >Bid</button>' +
                                 '</div>'
