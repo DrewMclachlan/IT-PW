@@ -17,7 +17,6 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('experimenter:home'))
 
-@login_required
 def getall(request):
     expr = Experiment.objects.all()
     json = serializers.serialize('json', expr)

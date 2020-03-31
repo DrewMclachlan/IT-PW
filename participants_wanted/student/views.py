@@ -46,8 +46,12 @@ def viewall(request):
         return render(request, 'home/viewall.html', context=context)
     except Exception as e:
         if type(e).__name__ == 'DoesNotExist':
-            error = "You must complete the survey first"
-            return render(request, 'student/home.html', context={'error': error, 'surv':False})
+            try:
+                student = request.COOKIES.get('student')
+                error = "You must complete the survey first"
+                return render(request, 'student/home.html', context={'error': error, 'surv':False})
+            except Exception as e:
+                return render(request, 'home/viewall.html')
         else:
             return render(request, 'home/viewall.html')
 
